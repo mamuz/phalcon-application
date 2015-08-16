@@ -36,5 +36,8 @@
     "psr-4": {
       "PhappTest\\": "tests/"
     }
+  },
+  "suggest": {
+    "mamuz/phalcon-skeleton": "mamuz/phalcon-skeleton application ~0.1, if you need a good starting place"
   }
 }
