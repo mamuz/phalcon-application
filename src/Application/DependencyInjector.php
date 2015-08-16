@@ -59,7 +59,7 @@ class DependencyInjector
 
         $di->setShared('view', function () {
             $view = new Service\View;
-            $view->setViewsDir('./view/');
+            $view->setViewsDir($this->config['view']['templatePath']);
             return $view;
         });
 
@@ -67,7 +67,7 @@ class DependencyInjector
         $dispatcher = $di->get('dispatcher');
         $dispatcher->setEventsManager(DispatchEventsManager::create());
         $dispatcher->setControllerSuffix(null);
-        $dispatcher->setDefaultNamespace(__NAMESPACE__ . '\\Controller');
+        $dispatcher->setDefaultNamespace($this->config['dispatcher']['controllerDefaultNamespace']);
 
         $this->injectServicesTo($di);
 
@@ -87,7 +87,7 @@ class DependencyInjector
         $dispatcher = $di->get('dispatcher');
         $dispatcher->setEventsManager(DispatchEventsManager::create());
         $dispatcher->setTaskSuffix(null);
-        $dispatcher->setDefaultNamespace(__NAMESPACE__ . '\\Task');
+        $dispatcher->setDefaultNamespace($this->config['dispatcher']['taskDefaultNamespace']);
 
         $this->injectServicesTo($di);
 

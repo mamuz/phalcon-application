@@ -5,11 +5,27 @@
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/mamuz/phalcon-application.svg?style=flat-square)](https://scrutinizer-ci.com/g/mamuz/phalcon-application/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/mamuz/Squeezer.svg?style=flat-square)](https://scrutinizer-ci.com/g/mamuz/phalcon-application)
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/mamuz/squeezer.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
-[![Total Downloads](https://img.shields.io/packagist/dt/mamuz/squeezer.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
-[![License](https://img.shields.io/packagist/l/mamuz/squeezer.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
+[![Latest Stable Version](https://img.shields.io/packagist/v/mamuz/phalcon-application.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
+[![Total Downloads](https://img.shields.io/packagist/dt/mamuz/phalcon-application.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
+[![License](https://img.shields.io/packagist/l/mamuz/phalcon-application.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
 
+
+Phalcon Application is built on top of Phalcon2 Framework and simplifies registering Controllers and Tasks in a standard way.
 
 ## Requirements
 
 - Phalcon2 is needed, follow install steps at https://github.com/phalcon/cphalcon
+
+## Features
+
+- Composer is used for class autoloading
+- Bootstrap
+- environment supporting config
+- cachable config
+- InjectableInterface for registering application services
+- Routes and application services are registerable with config
+- Autodetection of XHR to set rendering level for views
+
+## Usage
+
+- check https://github.com/mamuz/phalcon-playground
