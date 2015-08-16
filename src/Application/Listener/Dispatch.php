@@ -87,7 +87,7 @@ class Dispatch
 
         if ($dispatcher instanceof \Phalcon\Mvc\Dispatcher) {
             $config = $dispatcher->getDI()->get('config')['dispatcher']['errorForwarding'];
-            $action = $e instanceof Mvc\Dispatcher\Exception ? $config['notFoundACtion'] : $config['fatalAction'];
+            $action = $e instanceof Mvc\Dispatcher\Exception ? $config['notFoundAction'] : $config['fatalAction'];
             $dispatcher->forward(array('controller' => $config['controller'], 'action' => $action));
         }
 
