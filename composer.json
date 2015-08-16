@@ -1,17 +1,20 @@
 {
   "name": "mamuz/phalcon-application",
-  "description": "project description",
+  "description": "Phalcon Application is built on top of Phalcon2 and simplifies Bootstrapping and Registering Controllers & Tasks.",
   "type": "library",
-  "homepage"         : "https://github.com/mamuz/phalcon-application",
-  "license"          : "MIT",
-  "keywords"         : ["Phalcon", "Application"],
-  "authors"          : [
+  "homepage": "https://github.com/mamuz/phalcon-application",
+  "license": "MIT",
+  "keywords": [
+    "Phalcon",
+    "Application"
+  ],
+  "authors": [
     {
-      "name" : "Marco Muths",
+      "name": "Marco Muths",
       "email": "mamuz.de@gmail.com"
     }
   ],
-  "support"          : {
+  "support": {
     "issues": "https://github.com/mamuz/phalcon-application/issues",
     "source": "https://github.com/mamuz/phalcon-application"
   },
