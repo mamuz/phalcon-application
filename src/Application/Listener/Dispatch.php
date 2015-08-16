@@ -78,15 +78,17 @@ class Dispatch
      */
     public function beforeException(Event $event, Dispatcher $dispatcher, \Exception $e)
     {
-        /** @var \Phalcon\Logger\Adapter $logger */
-        $logger = $dispatcher->getDI()->get('logger');
-        $logger->error($e->getMessage());
+        if ($dispatcher->getDI()->has('logger')) {
+            $logger = $dispatcher->getDI()->get('logger');
+            if (is_callable(array($logger, 'error'))) {
+                $logger->error($e->getMessage());
+            }
+        }
 
         if ($dispatcher instanceof \Phalcon\Mvc\Dispatcher) {
-            $dispatcher->forward(array(
-                'controller' => 'error',
-                'action'     => $e instanceof Mvc\Dispatcher\Exception ? 'notFound' : 'fatal',
-            ));
+            $config = $dispatcher->getDI()->get('config')['dispatcher']['errorForwarding'];
+            $action = $e instanceof Mvc\Dispatcher\Exception ? $config['notFoundACtion'] : $config['fatalAction'];
+            $dispatcher->forward(array('controller' => $config['controller'], 'action' => $action));
         }
 
         return false;
