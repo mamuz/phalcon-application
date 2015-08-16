@@ -1,0 +1,40 @@
+{
+  "name": "mamuz/phalcon-application",
+  "description": "project description",
+  "type": "library",
+  "homepage"         : "https://github.com/mamuz/phalcon-application",
+  "license"          : "MIT",
+  "keywords"         : ["Phalcon", "Application"],
+  "authors"          : [
+    {
+      "name" : "Marco Muths",
+      "email": "mamuz.de@gmail.com"
+    }
+  ],
+  "support"          : {
+    "issues": "https://github.com/mamuz/phalcon-application/issues",
+    "source": "https://github.com/mamuz/phalcon-application"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true
+  },
+  "require": {
+    "php": ">=5.4",
+    "ext-phalcon": ">=2.0.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Phapp\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhappTest\\": "tests/"
+    }
+  }
+}
