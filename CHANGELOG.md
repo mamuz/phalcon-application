@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## v0.1.3 - UNRELEASED
 Nothing yet.
 
+## v0.1.4 - 2015-08-17
+### Changed
+- DispatchListener for errorhandling and view return value
+
 ## v0.1.2 - 2015-08-17
 ### Fixed
 - DispatchListener for getting request object
