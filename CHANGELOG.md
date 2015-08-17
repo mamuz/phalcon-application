@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v0.1.2 - UNRELEASED
+## v0.1.3 - UNRELEASED
 Nothing yet.
+
+## v0.1.2 - 2015-08-17
+### Fixed
+- DispatchListener for getting request object
 
 ## v0.1.1 - 2015-08-16
 ### Added
