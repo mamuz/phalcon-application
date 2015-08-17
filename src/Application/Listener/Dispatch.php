@@ -41,7 +41,7 @@ class Dispatch
             /** @var \Phapp\Application\Service\View $view */
             $view = $dispatcher->getDI()->get('view');
 
-            if ($view->isPicked()) {
+            if ($view->isDisabled() || $view->isPicked()) {
                 return;
             }
 
@@ -64,7 +64,7 @@ class Dispatch
         if (!$dispatcher->getDI()->has('request')) {
             return;
         }
-        
+
         /** @var \Phalcon\Http\Request $request */
         $request = $dispatcher->getDI()->get('request');
         if ($request->isAjax()) {
