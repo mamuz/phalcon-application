@@ -27,7 +27,7 @@ namespace Phapp\Application\Listener;
 
 use Phalcon\Dispatcher;
 use Phalcon\Events\Event;
-use Phalcon\Mvc;
+use Phalcon\Mvc\View;
 
 class Dispatch
 {
@@ -74,43 +74,7 @@ class Dispatch
         if ($request->isAjax()) {
             /** @var \Phapp\Application\Service\View $view */
             $view = $dispatcher->getDI()->get('view');
-            $view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+            $view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         }
-    }
-
-    /**
-     * @param Event      $event
-     * @param Dispatcher $dispatcher
-     * @param \Exception $e
-     * @return bool
-     */
-    public function beforeException(Event $event, Dispatcher $dispatcher, \Exception $e)
-    {
-        if ($dispatcher->getDI()->has('logger')) {
-            $logger = $dispatcher->getDI()->get('logger');
-            if (is_callable(array($logger, 'error'))) {
-                $logger->error($e->getMessage());
-            } elseif (is_callable(array($logger, 'err'))) {
-                $logger->err($e->getMessage());
-            }
-        }
-
-        if ($dispatcher instanceof \Phalcon\Mvc\Dispatcher) {
-            $dispatcher->setNamespaceName($dispatcher->getDefaultNamespace());
-            $config = $dispatcher->getDI()->get('config')['dispatcher']['errorForwarding'];
-            if ($e instanceof Mvc\Dispatcher\Exception) {
-                $action = $config['notFoundAction'];
-            } else {
-                $action = $config['errorAction'];
-                if ($dispatcher->getDI()->has('response')) {
-                    /** @var \Phalcon\Http\Response $response */
-                    $response = $dispatcher->getDI()->get('response');
-                    $response->setStatusCode(500, "Internal Server Error");
-                }
-            }
-            $dispatcher->forward(array('controller' => $config['controller'], 'action' => $action));
-        }
-
-        return false;
     }
 }

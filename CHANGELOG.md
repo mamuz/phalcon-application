@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v0.1.4 - UNRELEASED
+## v0.1.5 - UNRELEASED
 Nothing yet.
+
+## v0.1.4 - 2015-08-17
+### Changed
+- Remove Dispatch beforeExceptionListener
 
 ## v0.1.3 - 2015-08-17
 ### Changed
