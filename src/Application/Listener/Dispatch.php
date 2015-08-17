@@ -61,6 +61,10 @@ class Dispatch
      */
     public function beforeDispatchLoop(Event $event, Dispatcher $dispatcher)
     {
+        if (!$dispatcher->getDI()->has('request')) {
+            return;
+        }
+        
         /** @var \Phalcon\Http\Request $request */
         $request = $dispatcher->getDI()->get('request');
         if ($request->isAjax()) {
@@ -82,6 +86,8 @@ class Dispatch
             $logger = $dispatcher->getDI()->get('logger');
             if (is_callable(array($logger, 'error'))) {
                 $logger->error($e->getMessage());
+            } elseif (is_callable(array($logger, 'err'))) {
+                $logger->err($e->getMessage());
             }
         }
 
