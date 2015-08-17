@@ -37,6 +37,10 @@ class Dispatch
      */
     public function afterExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
+        if ($dispatcher->getReturnedValue()) {
+            return;
+        }
+
         if ($dispatcher->getNamespaceName() !== $dispatcher->getDefaultNamespace()) {
             /** @var \Phapp\Application\Service\View $view */
             $view = $dispatcher->getDI()->get('view');
@@ -92,8 +96,18 @@ class Dispatch
         }
 
         if ($dispatcher instanceof \Phalcon\Mvc\Dispatcher) {
+            $dispatcher->setNamespaceName($dispatcher->getDefaultNamespace());
             $config = $dispatcher->getDI()->get('config')['dispatcher']['errorForwarding'];
-            $action = $e instanceof Mvc\Dispatcher\Exception ? $config['notFoundAction'] : $config['fatalAction'];
+            if ($e instanceof Mvc\Dispatcher\Exception) {
+                $action = $config['notFoundAction'];
+            } else {
+                $action = $config['errorAction'];
+                if ($dispatcher->getDI()->has('response')) {
+                    /** @var \Phalcon\Http\Response $response */
+                    $response = $dispatcher->getDI()->get('response');
+                    $response->setStatusCode(500, "Internal Server Error");
+                }
+            }
             $dispatcher->forward(array('controller' => $config['controller'], 'action' => $action));
         }
 
