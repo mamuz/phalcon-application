@@ -1,10 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v0.1.5 - UNRELEASED
+## v0.1.6 - UNRELEASED
 Nothing yet.
 
-## v0.1.6 - UNRELEASED
+## v0.1.5 - UNRELEASED
 ### Changed
 - DispatchListener for set RenderLevel in case of xhr request
 
