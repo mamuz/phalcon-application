@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## v0.1.5 - UNRELEASED
 Nothing yet.
 
+## v0.1.6 - UNRELEASED
+### Changed
+- DispatchListener for set RenderLevel in case of xhr request
+
 ## v0.1.4 - 2015-08-17
 ### Changed
 - Remove Dispatch beforeExceptionListener

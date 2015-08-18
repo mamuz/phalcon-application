@@ -65,7 +65,9 @@ class Dispatch
      */
     public function beforeDispatchLoop(Event $event, Dispatcher $dispatcher)
     {
-        if (!$dispatcher->getDI()->has('request')) {
+        if (!$dispatcher->getDI()->has('request')
+            || $dispatcher->getReturnedValue()
+        ) {
             return;
         }
 
