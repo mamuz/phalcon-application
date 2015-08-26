@@ -59,7 +59,9 @@ class DependencyInjector
 
         $di->setShared('view', function () {
             $view = new Service\View;
-            $view->setViewsDir($this->config['view']['templatePath']);
+            if (isset($this->config['view']['templatePath'])) {
+                $view->setViewsDir($this->config['view']['templatePath']);
+            }
             return $view;
         });
 

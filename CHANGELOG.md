@@ -1,10 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v0.1.6 - UNRELEASED
+## v0.1.7 - UNRELEASED
 Nothing yet.
 
-## v0.1.5 - UNRELEASED
+## v0.1.6 - 2015-08-26
+### Changed
+- Make view directory configuration optionally
+
+## v0.1.5 - 2015-08-18
 ### Changed
 - DispatchListener for set RenderLevel in case of xhr request
 
