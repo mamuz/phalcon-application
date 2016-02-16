@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## v0.1.8 - UNRELEASED
 Nothing yet.
 
+## v0.1.9 - 2016-02-16
+### Fixed
+- After merging Config the Phalcon Framework should not reindex the result
+
 ## v0.1.7 - 2016-02-03
 ### Changed
 - Bump Copyright to 2016

@@ -54,11 +54,10 @@ class Config
             return $this->cachedConfig();
         }
 
-        $config = new Container;
+        $config = array();
         foreach (glob($this->configGlobPath, GLOB_BRACE) as $file) {
-            $config->merge(new Container(require $file));
+            $config = array_replace_recursive($config, require $file);
         }
-        $config = $config->toArray();
 
         if ($this->isCachable()) {
             $this->writeCacheWith($config);
