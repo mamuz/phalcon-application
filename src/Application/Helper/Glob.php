@@ -80,7 +80,7 @@ class Glob
 
         $res = glob($pattern, $globFlags);
         if ($res === false) {
-            throw new \RuntimeException("glob('{$pattern}', {$globFlags}) failed"/*, 0, $err*/);
+            throw new \RuntimeException("glob('{$pattern}', {$globFlags}) failed");
         }
         return $res;
     }
