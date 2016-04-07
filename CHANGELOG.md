@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## v0.1.9 - UNRELEASED
-Nothing yet.
+### Fixed
+- (#1: GLOB_BRACE breaks non-GNU systems)[https://github.com/mamuz/phalcon-application/issues/1]
 
 ## v0.1.8 - 2016-02-16
 ### Fixed

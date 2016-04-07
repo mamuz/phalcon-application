@@ -25,6 +25,7 @@
 
 namespace Phapp\Application\Service;
 
+use Phapp\Application\Helper\Glob;
 use Phalcon\Config as Container;
 
 class Config
@@ -35,14 +36,19 @@ class Config
     /** @var string */
     private $configGlobPath;
 
+    /** @var bool */
+    private $useFallbackGlob;
+
     /**
-     * @param string        $env
+     * @param string        $pathPattern
      * @param string | null $cacheFile
+     * @param bool          $useFallbackGlob
      */
-    public function __construct($env, $cacheFile = null)
+    public function __construct($pathPattern, $cacheFile = null, $useFallbackGlob = false)
     {
-        $this->configGlobPath = sprintf('config/{,*.}{global,%s,local}.php', $env);
+        $this->configGlobPath = $pathPattern;
         $this->cacheFile = $cacheFile;
+        $this->useFallbackGlob = $useFallbackGlob || !defined('GLOB_BRACE');
     }
 
     /**
@@ -55,8 +61,15 @@ class Config
         }
 
         $config = array();
-        foreach (glob($this->configGlobPath, GLOB_BRACE) as $file) {
-            $config = array_replace_recursive($config, require $file);
+
+        if ($this->useFallbackGlob) {
+            foreach (Glob::glob($this->configGlobPath, Glob::GLOB_BRACE) as $file) {
+                $config = array_replace_recursive($config, require $file);
+            }
+        } else {
+            foreach (glob($this->configGlobPath, GLOB_BRACE) as $file) {
+                $config = array_replace_recursive($config, require $file);
+            }
         }
 
         if ($this->isCachable()) {

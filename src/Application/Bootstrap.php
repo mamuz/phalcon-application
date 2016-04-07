@@ -58,7 +58,8 @@ class Bootstrap
      */
     public static function init($env, $configCacheFile = null)
     {
-        $config = new Service\Config($env, $configCacheFile);
+        $pathPattern = sprintf('config/{,*.}{global,%s,local}.php', $env);
+        $config = new Service\Config($pathPattern, $configCacheFile);
 
         return new self($config->read(), php_sapi_name() == "cli");
     }
