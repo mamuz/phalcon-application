@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Nothing yet.
 
 ## v1.0.0 - 2016-06-06
+### Changed
 - Remove Config merge feature, since Docker is comming into play
 
 ## v0.1.9 - 2016-04-11
