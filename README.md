@@ -15,8 +15,6 @@ Phalcon Application is built on top of Phalcon2 Framework and simplifies registe
 
 - Composer is used for class autoloading
 - Bootstrap
-- environment supporting config
-- cachable config
 - InjectableInterface for registering application services
 - Routes and application services are registerable with config
 - Autodetection of XHR to set rendering level for views
