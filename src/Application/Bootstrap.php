@@ -52,16 +52,12 @@ class Bootstrap
     }
 
     /**
-     * @param string       $env
-     * @param string |null $configCacheFile
+     * @param array $config
      * @return Bootstrap
      */
-    public static function init($env, $configCacheFile = null)
+    public static function init(array $config = [])
     {
-        $pathPattern = sprintf('config/{,*.}{global,%s,local}.php', $env);
-        $config = new Service\Config($pathPattern, $configCacheFile);
-
-        return new self($config->read(), php_sapi_name() == "cli");
+        return new self($config, php_sapi_name() == "cli");
     }
 
     /**
