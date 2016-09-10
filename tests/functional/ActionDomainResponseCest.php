@@ -8,7 +8,7 @@ class ActionDomainResponseCest
             'controllerDefaultNamespace' => 'StubProject\Controller',
         ],
         'routes'     => [
-            'default' => [
+            'default'           => [
                 'pattern'     => '/:controller/:action',
                 'paths'       => [
                     'controller' => 1,
@@ -23,7 +23,7 @@ class ActionDomainResponseCest
                 ],
                 'httpMethods' => ['GET'],
             ],
-            'custom' => [
+            'static'            => [
                 'pattern'     => '/custompost',
                 'paths'       => [
                     'controller' => 'custom',
@@ -39,34 +39,38 @@ class ActionDomainResponseCest
         'customKey'  => true,
     ];
 
-    /** @var \Phapp\Application\Bootstrap */
-    private $bootstrapper;
-
     /** @var string */
     private $expectedController;
 
     /** @var string */
     private $expectedAction;
 
-    /**
-     * @param FunctionalTester $tester
-     */
-    public function _before(FunctionalTester $tester)
-    {
-        unset($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-        $this->bootstrapper = new \Phapp\Application\Bootstrap($this->config, false);
-        ob_start();
-    }
+    /** @var string */
+    private $request;
 
     /**
      * @param FunctionalTester $tester
      */
     public function _after(FunctionalTester $tester)
     {
+        $requestInfo = explode(' ', $this->request);
+        $_SERVER['REQUEST_METHOD'] = $requestInfo[0];
+        $_SERVER['REQUEST_URI'] = isset($requestInfo[1]) ? $requestInfo[1] : '';
+
+        $tester->comment('`HTTP ' . $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'] . '`');
+
         $expected = $this->config['dispatcher']['controllerDefaultNamespace'] . '\\'
             . ucfirst($this->expectedController) . '::' . lcfirst($this->expectedAction) . 'Action()';
 
+        ob_start();
+        $tester->execute(function () {
+            $bootstrapper = new \Phapp\Application\Bootstrap($this->config, false);
+            $bootstrapper->runApplicationOn([]);
+        });
         $tester->assertSame($expected, ob_get_clean());
+
+        $this->request = null;
+        unset($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
     }
 
     /**
@@ -76,9 +80,7 @@ class ActionDomainResponseCest
     {
         $this->expectedController = 'index';
         $this->expectedAction = 'index';
-
-        $this->prepareRequestTo('/');
-        $this->sendRequestBy($tester);
+        $this->request = 'GET /';
     }
 
     /**
@@ -88,9 +90,7 @@ class ActionDomainResponseCest
     {
         $this->expectedController = 'index';
         $this->expectedAction = 'index';
-
-        $this->prepareRequestTo('');
-        $this->sendRequestBy($tester);
+        $this->request = 'GET';
     }
 
     /**
@@ -99,10 +99,8 @@ class ActionDomainResponseCest
     public function requestCustomActionInDefaultController(FunctionalTester $tester)
     {
         $this->expectedController = 'index';
-        $this->expectedAction = 'foo';
-
-        $this->prepareRequestTo('/index/foo');
-        $this->sendRequestBy($tester);
+        $this->expectedAction = 'custom';
+        $this->request = 'GET /index/custom';
     }
 
     /**
@@ -111,22 +109,18 @@ class ActionDomainResponseCest
     public function requestCustomActionInDefaultControllerWithTrailingSlashInRequestUri(FunctionalTester $tester)
     {
         $this->expectedController = 'index';
-        $this->expectedAction = 'foo';
-
-        $this->prepareRequestTo('/index/foo/');
-        $this->sendRequestBy($tester);
+        $this->expectedAction = 'custom';
+        $this->request = 'GET /index/custom/';
     }
-    
+
     /**
      * @param FunctionalTester $tester
      */
     public function requestCustomActionInDefaultControllerWithServiceAccess(FunctionalTester $tester)
     {
         $this->expectedController = 'index';
-        $this->expectedAction = 'foo';
-
-        $this->prepareRequestTo('/index/foo');
-        $this->sendRequestBy($tester);
+        $this->expectedAction = 'service';
+        $this->request = 'GET /index/service';
     }
 
     /**
@@ -136,9 +130,7 @@ class ActionDomainResponseCest
     {
         $this->expectedController = 'custom';
         $this->expectedAction = 'index';
-
-        $this->prepareRequestTo('/custom/');
-        $this->sendRequestBy($tester);
+        $this->request = 'GET /custom';
     }
 
     /**
@@ -147,10 +139,8 @@ class ActionDomainResponseCest
     public function requestCustomActionInCustomController(FunctionalTester $tester)
     {
         $this->expectedController = 'custom';
-        $this->expectedAction = 'foo';
-
-        $this->prepareRequestTo('/custom/foo');
-        $this->sendRequestBy($tester);
+        $this->expectedAction = 'custom';
+        $this->request = 'GET /custom/custom';
     }
 
     /**
@@ -160,9 +150,7 @@ class ActionDomainResponseCest
     {
         $this->expectedController = 'index';
         $this->expectedAction = 'index';
-
-        $this->prepareRequestTo('/custom/foo', 'POST');
-        $this->sendRequestBy($tester);
+        $this->request = 'POST /custom/custom';
     }
 
     /**
@@ -172,28 +160,6 @@ class ActionDomainResponseCest
     {
         $this->expectedController = 'custom';
         $this->expectedAction = 'post';
-
-        $this->prepareRequestTo('/custompost', 'POST');
-        $this->sendRequestBy($tester);
-    }
-
-    /**
-     * @param string $uri
-     * @param string $method
-     */
-    private function prepareRequestTo($uri, $method = 'GET')
-    {
-        $_SERVER['REQUEST_URI'] = $uri;
-        $_SERVER['REQUEST_METHOD'] = $method;
-    }
-
-    /**
-     * @param FunctionalTester $tester
-     */
-    private function sendRequestBy(FunctionalTester $tester)
-    {
-        $tester->execute(function () {
-            $this->bootstrapper->runApplicationOn([]);
-        });
+        $this->request = 'POST /custompost';
     }
 }

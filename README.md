@@ -15,6 +15,6 @@ simple and customizable application bootstrapping.
 ## Features
 
 - Autoloading with Composer
-- Simple array configuration of mvc and cli tasks
+- Simple mvc configuration
 - Service registration
 - XHR friendly view renderer 

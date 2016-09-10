@@ -4,29 +4,29 @@ namespace StubProject\Task;
 
 use Phalcon\Cli\Task;
 
-class Main extends Task
+class Custom extends Task
 {
     function mainAction()
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 
-    function fooAction()
+    function customAction()
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
     
-    function barAction(array $arguments)
+    function argumentAction(array $arguments)
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '(' . implode(', ', $arguments). ')';
     }
 
-    function bazAction()
+    function serviceAction()
     {
         if (false === $this->getDI()->get('config')['customKey']) {
             throw new \Exception;
         }
-
+        
         $this->getDI()->get('stdClass');
         $this->getDI()->get('stdClass2');
 

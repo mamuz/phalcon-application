@@ -12,12 +12,12 @@ class Index extends Controller
         return new Response(__CLASS__ . '::' . __FUNCTION__ . '()');
     }
     
-    public function fooAction()
+    public function customAction()
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 
-    public function barAction()
+    public function serviceAction()
     {
         if (false === $this->getDI()->get('config')['customKey']) {
             throw new \Exception;

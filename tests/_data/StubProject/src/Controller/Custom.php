@@ -12,7 +12,7 @@ class Custom extends Controller
         return new Response(__CLASS__ . '::' . __FUNCTION__ . '()');
     }
     
-    public function fooAction()
+    public function customAction()
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }

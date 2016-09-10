@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## v1.0.1 - UNRELEASED
+### Added
+- Functional tests for all use cases
 ### Fixed
 - Successful routing with trailing slashes
 

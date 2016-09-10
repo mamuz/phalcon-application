@@ -20,36 +20,37 @@ class CommandLineCest
     /**
      * @param FunctionalTester $tester
      */
-    public function _before(FunctionalTester $tester)
-    {
-        $this->arguments = [];
-        ob_start();
-    }
-
-    /**
-     * @param FunctionalTester $tester
-     */
     public function _after(FunctionalTester $tester)
     {
         $task = $action = 'main';
-        $arguments = [];
+        $helpDoc = $arguments = [];
 
         foreach ($this->arguments as $k => $arg) {
             if ($k == 0) {
-                $task = $arg;
+                $helpDoc[] = $task = $arg;
             } elseif ($k == 1) {
-                $action = $arg;
+                $helpDoc[] = $action = $arg;
             } elseif ($k >= 2) {
-                $arguments[] = $arg;
+                $helpDoc[] = $arguments[] = $arg;
             }
         }
+
+        $tester->comment('`> php index.php ' . implode(' ', $helpDoc) . '`');
 
         $expected = $this->config['dispatcher']['taskDefaultNamespace'] . '\\'
             . ucfirst($task) . '::' . $action . 'Action('
             . implode(', ', $arguments)
             . ')';
-
+        
+        ob_start();
+        $tester->execute(function () {
+            \Phapp\Application\Bootstrap::init($this->config)->runApplicationOn(
+                ['argv' => array_merge([__FILE__], $this->arguments)]
+            );
+        });
         $tester->assertSame($expected, ob_get_clean());
+
+        $this->arguments = [];
     }
 
     /**
@@ -57,7 +58,7 @@ class CommandLineCest
      */
     public function callDefaultActionInDefaultTask(FunctionalTester $tester)
     {
-        $this->execute($tester);
+        $this->arguments = [];
     }
 
     /**
@@ -65,8 +66,7 @@ class CommandLineCest
      */
     public function callCustomActionInDefaultTask(FunctionalTester $tester)
     {
-        $this->arguments = ['main', 'foo'];
-        $this->execute($tester);
+        $this->arguments = ['main', 'custom'];
     }
 
     /**
@@ -74,8 +74,7 @@ class CommandLineCest
      */
     public function callCustomActionInDefaultTaskWithArguments(FunctionalTester $tester)
     {
-        $this->arguments = ['main', 'bar', 12, 'bar', 'baz'];
-        $this->execute($tester);
+        $this->arguments = ['main', 'argument', 12, 'foo', 'bar'];
     }
 
     /**
@@ -83,8 +82,7 @@ class CommandLineCest
      */
     public function callCustomActionInDefaultTaskWithServiceAccess(FunctionalTester $tester)
     {
-        $this->arguments = ['main', 'baz'];
-        $this->execute($tester);
+        $this->arguments = ['main', 'service'];
     }
 
     /**
@@ -93,7 +91,6 @@ class CommandLineCest
     public function callDefaultActionInCustomTask(FunctionalTester $tester)
     {
         $this->arguments = ['custom'];
-        $this->execute($tester);
     }
 
     /**
@@ -101,8 +98,7 @@ class CommandLineCest
      */
     public function callCustomActionInCustomTask(FunctionalTester $tester)
     {
-        $this->arguments = ['custom', 'foo'];
-        $this->execute($tester);
+        $this->arguments = ['custom', 'custom'];
     }
 
     /**
@@ -110,8 +106,7 @@ class CommandLineCest
      */
     public function callCustomActionInCustomTaskWithArguments(FunctionalTester $tester)
     {
-        $this->arguments = ['custom', 'bar', 12, 'bar', 'baz'];
-        $this->execute($tester);
+        $this->arguments = ['custom', 'argument', 12, 'foo', 'bar'];
     }
 
     /**
@@ -119,25 +114,6 @@ class CommandLineCest
      */
     public function callCustomActionInCustomTaskWithServiceAccess(FunctionalTester $tester)
     {
-        $this->arguments = ['custom', 'baz'];
-        $this->execute($tester);
-    }
-
-    /**
-     * @param FunctionalTester $tester
-     */
-    private function execute(FunctionalTester $tester)
-    {
-        $tester->execute(function () {
-            \Phapp\Application\Bootstrap::init($this->config)->runApplicationOn($this->server());
-        });
-    }
-
-    /**
-     * @return array
-     */
-    private function server()
-    {
-        return ['argv' => array_merge([__FILE__], $this->arguments)];
+        $this->arguments = ['custom', 'service'];
     }
 }
