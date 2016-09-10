@@ -47,7 +47,7 @@ class Bootstrap
     public function __construct(array $config, $isConsole)
     {
         $this->config = $config;
-        $this->isConsole = $isConsole;
+        $this->isConsole = (bool) $isConsole;
         $this->di = new DependencyInjector($this->config);
     }
 
