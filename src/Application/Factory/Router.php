@@ -37,6 +37,7 @@ class Router
     {
         $router = new MvcRouter(false);
         $router->setUriSource(MvcRouter::URI_SOURCE_SERVER_REQUEST_URI);
+        $router->removeExtraSlashes(true);
 
         foreach ($routes as $route) {
             $router->add(

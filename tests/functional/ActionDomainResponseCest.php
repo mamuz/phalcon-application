@@ -16,6 +16,13 @@ class ActionDomainResponseCest
                 ],
                 'httpMethods' => ['GET'],
             ],
+            'defaultController' => [
+                'pattern'     => '/:controller',
+                'paths'       => [
+                    'controller' => 1,
+                ],
+                'httpMethods' => ['GET'],
+            ],
             'custom' => [
                 'pattern'     => '/custompost',
                 'paths'       => [
@@ -77,12 +84,36 @@ class ActionDomainResponseCest
     /**
      * @param FunctionalTester $tester
      */
+    public function requestDefaultActionInDefaultControllerWihtoutTrailingSlashInRequestUri(FunctionalTester $tester)
+    {
+        $this->expectedController = 'index';
+        $this->expectedAction = 'index';
+
+        $this->prepareRequestTo('');
+        $this->sendRequestBy($tester);
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
     public function requestCustomActionInDefaultController(FunctionalTester $tester)
     {
         $this->expectedController = 'index';
         $this->expectedAction = 'foo';
 
         $this->prepareRequestTo('/index/foo');
+        $this->sendRequestBy($tester);
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function requestCustomActionInDefaultControllerWithTrailingSlashInRequestUri(FunctionalTester $tester)
+    {
+        $this->expectedController = 'index';
+        $this->expectedAction = 'foo';
+
+        $this->prepareRequestTo('/index/foo/');
         $this->sendRequestBy($tester);
     }
     
@@ -95,6 +126,18 @@ class ActionDomainResponseCest
         $this->expectedAction = 'foo';
 
         $this->prepareRequestTo('/index/foo');
+        $this->sendRequestBy($tester);
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function requestDefaultActionInCustomController(FunctionalTester $tester)
+    {
+        $this->expectedController = 'custom';
+        $this->expectedAction = 'index';
+
+        $this->prepareRequestTo('/custom/');
         $this->sendRequestBy($tester);
     }
 
