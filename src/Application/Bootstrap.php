@@ -44,7 +44,7 @@ class Bootstrap
      * @param array $config
      * @param bool  $isConsole
      */
-    private function __construct(array $config, $isConsole)
+    public function __construct(array $config, $isConsole)
     {
         $this->config = $config;
         $this->isConsole = $isConsole;
