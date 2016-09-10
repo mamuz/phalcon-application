@@ -1,6 +1,6 @@
 <?php
 
-class TaskCest
+class CommandLineCest
 {
     /** @var array */
     private $config = [
@@ -55,7 +55,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callMainActionInMainTask(FunctionalTester $tester)
+    public function callDefaultActionInDefaultTask(FunctionalTester $tester)
     {
         $this->execute($tester);
     }
@@ -63,7 +63,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callCustomActionInMainTask(FunctionalTester $tester)
+    public function callCustomActionInDefaultTask(FunctionalTester $tester)
     {
         $this->arguments = ['main', 'foo'];
         $this->execute($tester);
@@ -72,7 +72,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callCustomActionInMainTaskWithArguments(FunctionalTester $tester)
+    public function callCustomActionInDefaultTaskWithArguments(FunctionalTester $tester)
     {
         $this->arguments = ['main', 'bar', 12, 'bar', 'baz'];
         $this->execute($tester);
@@ -81,7 +81,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callCustomActionInMainTaskWithServiceAccess(FunctionalTester $tester)
+    public function callCustomActionInDefaultTaskWithServiceAccess(FunctionalTester $tester)
     {
         $this->arguments = ['main', 'baz'];
         $this->execute($tester);
@@ -90,7 +90,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callMainActionInCustomTask(FunctionalTester $tester)
+    public function callDefaultActionInCustomTask(FunctionalTester $tester)
     {
         $this->arguments = ['custom'];
         $this->execute($tester);
