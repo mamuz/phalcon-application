@@ -5,7 +5,8 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/mamuz/phalcon-application.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
 [![License](https://img.shields.io/packagist/l/mamuz/phalcon-application.svg?style=flat-square)](https://packagist.org/packages/mamuz/phalcon-application)
 
-Phalcon Application is built on top of Phalcon2 Framework and simplifies registering Controllers and Tasks in a standard way.
+Phalcon Application is built on top of Phalcon2 Framework and provides
+simple and customizable application bootstrapping.
 
 ## Requirements
 
@@ -13,12 +14,7 @@ Phalcon Application is built on top of Phalcon2 Framework and simplifies registe
 
 ## Features
 
-- Composer is used for class autoloading
-- Bootstrap
-- InjectableInterface for registering application services
-- Routes and application services are registerable with config
-- Autodetection of XHR to set rendering level for views
-
-## Usage
-
-- check https://github.com/mamuz/phalcon-playground
+- Autoloading with Composer
+- Simple array configuration of mvc and cli tasks
+- Service registration
+- XHR friendly view renderer 
