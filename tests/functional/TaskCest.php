@@ -63,7 +63,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callFooActionInMainTask(FunctionalTester $tester)
+    public function callCustomActionInMainTask(FunctionalTester $tester)
     {
         $this->arguments = ['main', 'foo'];
         $this->execute($tester);
@@ -72,7 +72,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callBarActionInMainTaskWithArguments(FunctionalTester $tester)
+    public function callCustomActionInMainTaskWithArguments(FunctionalTester $tester)
     {
         $this->arguments = ['main', 'bar', 12, 'bar', 'baz'];
         $this->execute($tester);
@@ -81,7 +81,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callBazActionInMainTaskWithServiceAccess(FunctionalTester $tester)
+    public function callCustomActionInMainTaskWithServiceAccess(FunctionalTester $tester)
     {
         $this->arguments = ['main', 'baz'];
         $this->execute($tester);
@@ -99,7 +99,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callFooActionInCustomTask(FunctionalTester $tester)
+    public function callCustomActionInCustomTask(FunctionalTester $tester)
     {
         $this->arguments = ['custom', 'foo'];
         $this->execute($tester);
@@ -108,7 +108,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callBarActionInCustomTaskWithArguments(FunctionalTester $tester)
+    public function callCustomActionInCustomTaskWithArguments(FunctionalTester $tester)
     {
         $this->arguments = ['custom', 'bar', 12, 'bar', 'baz'];
         $this->execute($tester);
@@ -117,7 +117,7 @@ class TaskCest
     /**
      * @param FunctionalTester $tester
      */
-    public function callBazActionInCustomTaskWithServiceAccess(FunctionalTester $tester)
+    public function callCustomActionInCustomTaskWithServiceAccess(FunctionalTester $tester)
     {
         $this->arguments = ['custom', 'baz'];
         $this->execute($tester);
