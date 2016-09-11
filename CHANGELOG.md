@@ -1,7 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v1.0.1 - UNRELEASED
+## v1.0.2 - UNRELEASED
+Nothing yet. 
+
+## v1.0.1 - 2016-09-11
 ### Added
 - Travis configuration in order to meet CI
 - Makefile to wrap docker commands
