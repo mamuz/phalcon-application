@@ -1,13 +1,10 @@
 sudo: required
 
-language: php
-
 services:
   - docker
 
-before_install:
+install:
   - docker build -t mamuz/phalcon-application .
-  - docker run --rm -it mamuz/phalcon-application ./vendor/bin/codecept run
 
 script:
-  - ./vendor/bin/codecept run
+  - docker run --rm -it mamuz/phalcon-application /bin/sh -c "./vendor/bin/codecept run"
