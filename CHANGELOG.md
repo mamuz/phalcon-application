@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## v1.0.1 - UNRELEASED
 ### Added
+- Travis configuration in order to meet CI
+- Makefile to wrap docker commands
+- Dockerfile for containerized testing
 - Functional tests for all use cases
 ### Fixed
 - Successful routing with trailing slashes

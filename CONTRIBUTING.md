@@ -26,6 +26,12 @@ that contains the [license](https://github.com/mamuz/phalcon-application/blob/ma
 
 Check [this](http://choosealicense.com/licenses/mit) for more informations about MIT License.
 
+## Tests
+
+Add a test for your pull-request.
+
+You can run the tests by calling `make test` from the root of the project.
+
 ## Travis
 
 Your pull-request will run through [Travis CI](http://www.travis-ci.org)
