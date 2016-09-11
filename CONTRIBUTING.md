@@ -28,7 +28,7 @@ Check [this](http://choosealicense.com/licenses/mit) for more informations about
 
 ## Tests
 
-Add a test for your pull-request.
+Add a functional test for your pull-request.
 
 You can run the tests by calling `make test` from the root of the project.
 
