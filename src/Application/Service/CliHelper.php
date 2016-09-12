@@ -28,6 +28,7 @@ namespace Phapp\Application\Service;
 class CliHelper
 {
     /**
+     * @param array $argv
      * @return array
      */
     public static function extractArgumentsFrom(array $argv)
