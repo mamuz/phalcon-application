@@ -33,7 +33,7 @@ class DispatchEventsManager
     /**
      * @return Manager
      */
-    public static function create()
+    public static function create(): Manager
     {
         $manager = new Manager;
         $manager->attach('dispatch', new Dispatch);

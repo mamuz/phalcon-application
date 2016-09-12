@@ -44,10 +44,10 @@ class Bootstrap
      * @param array $config
      * @param bool  $isConsole
      */
-    public function __construct(array $config, $isConsole)
+    public function __construct(array $config, bool $isConsole)
     {
         $this->config = $config;
-        $this->isConsole = (bool) $isConsole;
+        $this->isConsole = $isConsole;
         $this->di = new DependencyInjector($this->config);
     }
 
@@ -55,7 +55,7 @@ class Bootstrap
      * @param array $config
      * @return Bootstrap
      */
-    public static function init(array $config = [])
+    public static function init(array $config = []): self
     {
         return new self($config, php_sapi_name() == "cli");
     }
@@ -79,7 +79,7 @@ class Bootstrap
     /**
      * @return Application
      */
-    private function createMvcApplication()
+    private function createMvcApplication(): Application
     {
         return new Application($this->di->createForMvc());
     }
@@ -87,7 +87,7 @@ class Bootstrap
     /**
      * @return Console
      */
-    private function createCliApplication()
+    private function createCliApplication(): Console
     {
         return new Console($this->di->createForCli());
     }

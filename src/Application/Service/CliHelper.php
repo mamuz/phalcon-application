@@ -31,7 +31,7 @@ class CliHelper
      * @param array $argv
      * @return array
      */
-    public static function extractArgumentsFrom(array $argv)
+    public static function extractArgumentsFrom(array $argv): array
     {
         $arguments = array();
 

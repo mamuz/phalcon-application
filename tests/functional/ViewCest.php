@@ -152,6 +152,15 @@ class ViewCest
     /**
      * @param FunctionalTester $tester
      */
+    public function seeReturnValueWithoutAnyFrame(FunctionalTester $tester)
+    {
+        $this->request = '/index/return';
+        $this->expectedOutput = 'StubViewProject\Controller\Index::returnAction()';
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
     public function seeDefaultPageWithCustomFrame(FunctionalTester $tester)
     {
         $this->request = '/custom/index';

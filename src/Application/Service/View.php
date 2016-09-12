@@ -32,7 +32,7 @@ class View extends PhalconView
     /**
      * @return bool
      */
-    public function isPicked()
+    public function isPicked(): bool
     {
         return !empty($this->_pickView);
     }

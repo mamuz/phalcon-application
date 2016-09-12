@@ -32,4 +32,9 @@ class Index extends Controller
         $this->getDI()->get('stdClass');
         $this->view->action = __CLASS__ . '::' . __FUNCTION__ . '()';
     }
+
+    public function returnAction()
+    {
+        return  __CLASS__ . '::' . __FUNCTION__ . '()';
+    }
 }

@@ -46,21 +46,22 @@ class DependencyInjector
     /**
      * @return Di
      */
-    public function createForMvc()
+    public function createForMvc(): Di
     {
         $di = new Di\FactoryDefault;
 
         $this->injectConfigTo($di);
 
-        $di->setShared('router', function () {
-            $routes = isset($this->config['routes']) ? $this->config['routes'] : array();
+        $config = $this->config;
+        $di->setShared('router', function () use ($config) {
+            $routes = isset($config['routes']) ? $config['routes'] : array();
             return Factory\Router::createFrom($routes);
         });
 
-        $di->setShared('view', function () {
+        $di->setShared('view', function () use ($config) {
             $view = new Service\View;
-            if (isset($this->config['view']['templatePath'])) {
-                $view->setViewsDir($this->config['view']['templatePath']);
+            if (isset($config['view']['templatePath'])) {
+                $view->setViewsDir($config['view']['templatePath']);
             }
             return $view;
         });
@@ -79,7 +80,7 @@ class DependencyInjector
     /**
      * @return Di
      */
-    public function createForCli()
+    public function createForCli(): Di
     {
         $di = new Di\FactoryDefault\Cli;
 
@@ -101,8 +102,9 @@ class DependencyInjector
      */
     private function injectConfigTo(Di $di)
     {
-        $di->set('config', function () {
-            return new Config($this->config);
+        $config = $this->config;
+        $di->set('config', function () use ($config) {
+            return new Config($config);
         });
     }
 

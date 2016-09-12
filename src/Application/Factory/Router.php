@@ -33,7 +33,7 @@ class Router
      * @param array $routes
      * @return MvcRouter
      */
-    public static function createFrom(array $routes)
+    public static function createFrom(array $routes): MvcRouter
     {
         $router = new MvcRouter(false);
         $router->setUriSource(MvcRouter::URI_SOURCE_SERVER_REQUEST_URI);

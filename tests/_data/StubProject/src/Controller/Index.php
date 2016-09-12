@@ -14,7 +14,7 @@ class Index extends Controller
     
     public function customAction()
     {
-        echo __CLASS__ . '::' . __FUNCTION__ . '()';
+        return __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 
     public function serviceAction()
@@ -26,6 +26,6 @@ class Index extends Controller
         $this->getDI()->get('stdClass');
         $this->getDI()->get('stdClass2');
 
-        echo __CLASS__ . '::' . __FUNCTION__ . '()';
+        return __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 }

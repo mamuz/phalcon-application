@@ -16,4 +16,4 @@ clean:
 	-@rm -rf vendor
 
 test:
-	@docker run --rm -it -v $(shell pwd):/phapp $(NAME) ./vendor/bin/codecept run -vvv
+	@docker run --rm -it -v $(shell pwd):/phapp $(NAME) ./vendor/bin/codecept run
