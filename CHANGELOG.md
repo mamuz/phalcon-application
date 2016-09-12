@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v1.0.2 - UNRELEASED
-Nothing yet. 
+## v1.0.3 - UNRELEASED
+Nothing yet.
+
+## v1.0.2 - 2016-09-12
+### Fixed
+- Phalcon dependency constraint inside composer.json
 
 ## v1.0.1 - 2016-09-11
 ### Added
