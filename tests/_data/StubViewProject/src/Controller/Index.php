@@ -2,6 +2,7 @@
 
 namespace StubViewProject\Controller;
 
+use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
 
 class Index extends Controller
@@ -31,5 +32,20 @@ class Index extends Controller
     {
         $this->getDI()->get('stdClass');
         $this->view->action = __CLASS__ . '::' . __FUNCTION__ . '()';
+    }
+
+    public function returnAction()
+    {
+        return  __CLASS__ . '::' . __FUNCTION__ . '()';
+    }
+
+    public function responseAction()
+    {
+        return  new Response(__CLASS__ . '::' . __FUNCTION__ . '()');
+    }
+
+    public function echoAction()
+    {
+        echo  __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 }
