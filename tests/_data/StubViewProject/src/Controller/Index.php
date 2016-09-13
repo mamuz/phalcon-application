@@ -48,4 +48,14 @@ class Index extends Controller
     {
         echo  __CLASS__ . '::' . __FUNCTION__ . '()';
     }
+
+    public function forwardAction()
+    {
+        $this->dispatcher->forward(
+            array(
+                "controller" => "index",
+                "action"     => "custom"
+            )
+        );
+    }
 }

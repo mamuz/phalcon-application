@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v1.0.3 - UNRELEASED
+## v1.0.6 - UNRELEASED
 Nothing yet.
+
+## v1.0.5 - 2016-09-13
+### Added
+- Tests for forwarding controller action
 
 ## v1.0.4 - 2016-09-13
 ### Added

@@ -162,4 +162,14 @@ class ActionDomainResponseCest
         $this->expectedAction = 'post';
         $this->request = 'POST /custompost';
     }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function forwardAction(FunctionalTester $tester)
+    {
+        $this->expectedController = 'index';
+        $this->expectedAction = 'custom';
+        $this->request = 'GET /index/forward';
+    }
 }

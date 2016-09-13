@@ -277,4 +277,15 @@ class ViewCest
             . 'StubViewProject\Controller\Admin\Custom::indexAction()'
             . "</innerframe>\n</frame>\n</outerframe>\n";
     }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function forwardAction(FunctionalTester $tester)
+    {
+        $this->request = '/index/forward';
+        $this->expectedOutput = '<outerframe><frame controller="index"><innerframe action="custom">'
+            . 'StubViewProject\Controller\Index::customAction()'
+            . "</innerframe>\n</frame>\n</outerframe>\n";
+    }
 }
