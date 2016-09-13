@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v1.0.3 - UNRELEASED
+## v1.0.4 - UNRELEASED
 Nothing yet.
+
+## v1.0.3 - 2016-09-13
+### Added
+- Tests for use cases about having subfoldered controllers
 
 ## v1.0.2 - 2016-09-12
 ### Fixed

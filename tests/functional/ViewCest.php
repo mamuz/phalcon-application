@@ -21,6 +21,22 @@ class ViewCest
                     'action'     => 2,
                 ],
             ],
+            'module'  => [
+                'pattern' => '/admin/:controller/:action',
+                'paths'   => [
+                    'namespace'  => 'StubViewProject\Controller\Admin',
+                    'controller' => 1,
+                    'action'     => 2,
+                ],
+            ],
+            'moduleDefault'  => [
+                'pattern' => '/admin',
+                'paths'   => [
+                    'namespace'  => 'StubViewProject\Controller\Admin',
+                    'controller' => 'index',
+                    'action'     => 'index',
+                ],
+            ],
         ],
         'view'       => [
             'templatePath' => CODECEPT_DATA_DIR . '/StubViewProject/view/',
@@ -161,6 +177,15 @@ class ViewCest
     /**
      * @param FunctionalTester $tester
      */
+    public function seeResponseContentWithoutAnyFrame(FunctionalTester $tester)
+    {
+        $this->request = '/index/response';
+        $this->expectedOutput = 'StubViewProject\Controller\Index::responseAction()';
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
     public function seeDefaultPageWithCustomFrame(FunctionalTester $tester)
     {
         $this->request = '/custom/index';
@@ -209,5 +234,50 @@ class ViewCest
         $this->expectedOutput = '<outerframe><innerframe action="index">'
             . 'StubViewProject\Controller\NonLayout::indexAction()'
             . "</innerframe>\n</outerframe>\n";
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function seeDefaultPageInAdminModule(FunctionalTester $tester)
+    {
+        $this->request = '/admin';
+        $this->expectedOutput = '<outerframe><frame controller="admin"><innerframe action="index">'
+            . 'StubViewProject\Controller\Admin\Index::indexAction()'
+            . "</innerframe>\n</frame>\n</outerframe>\n";
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function seeCustomPageInAdminModule(FunctionalTester $tester)
+    {
+        $this->request = '/admin/index/custom';
+        $this->expectedOutput = '<outerframe><frame controller="admin"><innerframe action="custom">'
+            . 'StubViewProject\Controller\Admin\Index::customAction()'
+            . "</innerframe>\n</frame>\n</outerframe>\n";
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function seeDefaultPageInCustomControllerOfAdminModule(FunctionalTester $tester)
+    {
+        $this->request = '/admin/custom/index';
+        $this->expectedOutput = '<outerframe><frame controller="admin"><innerframe action="index">'
+            . 'StubViewProject\Controller\Admin\Custom::indexAction()'
+            . "</innerframe>\n</frame>\n</outerframe>\n";
+    }
+
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function seePickedPageInAdminModule(FunctionalTester $tester)
+    {
+        $this->request = '/admin/index/pick';
+        $this->expectedOutput = '<outerframe><frame controller="admin"><innerframe action="custom">'
+            . 'StubViewProject\Controller\Admin\Index::pickAction()'
+            . "</innerframe>\n</frame>\n</outerframe>\n";
     }
 }
