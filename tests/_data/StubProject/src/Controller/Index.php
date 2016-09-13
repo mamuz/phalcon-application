@@ -14,7 +14,7 @@ class Index extends Controller
     
     public function customAction()
     {
-        return __CLASS__ . '::' . __FUNCTION__ . '()';
+        echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 
     public function serviceAction()

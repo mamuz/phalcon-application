@@ -29,7 +29,7 @@ namespace Phapp\Application;
 
 use Phalcon\Config;
 use Phalcon\Di;
-use \Phalcon\Mvc\View;
+use Phalcon\Mvc\View;
 use Phapp\Application\Factory\DispatchEventsManager;
 use Phapp\Application\Service\InjectableInterface;
 
@@ -65,6 +65,8 @@ class DependencyInjector
             $view = new View;
             if (isset($config['view']['templatePath'])) {
                 $view->setViewsDir($config['view']['templatePath']);
+            } else {
+                $view->disable();
             }
             return $view;
         });

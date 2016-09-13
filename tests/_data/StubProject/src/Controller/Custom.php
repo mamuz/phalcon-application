@@ -14,11 +14,11 @@ class Custom extends Controller
     
     public function customAction()
     {
-        return __CLASS__ . '::' . __FUNCTION__ . '()';
+        echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 
     public function postAction()
     {
-        return __CLASS__ . '::' . __FUNCTION__ . '()';
+        echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 }
