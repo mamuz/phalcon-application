@@ -38,14 +38,4 @@ class Index extends Controller
             )
         );
     }
-
-    public function forwardAction()
-    {
-        $this->dispatcher->forward(
-            array(
-                "controller" => "index",
-                "action"     => "custom"
-            )
-        );
-    }
 }
