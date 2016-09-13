@@ -44,8 +44,8 @@ class Router
         foreach ($routes as $route) {
             $router->add(
                 $route['pattern'],
-                isset($route['paths']) ? $route['paths'] : null,
-                isset($route['httpMethods']) ? $route['httpMethods'] : null
+                $route['paths'] ?? null,
+                $route['httpMethods'] ?? null
             );
         }
 

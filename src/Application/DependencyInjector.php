@@ -57,8 +57,7 @@ class DependencyInjector
 
         $config = $this->config;
         $di->setShared('router', function () use ($config) {
-            $routes = isset($config['routes']) ? $config['routes'] : array();
-            return Factory\Router::createFrom($routes);
+            return Factory\Router::createFrom($config['routes'] ?? []);
         });
 
         $di->setShared('view', function () use ($config) {
@@ -119,7 +118,7 @@ class DependencyInjector
     private function injectServicesTo(Di $di)
     {
         /** @var InjectableInterface[] $services */
-        $services = isset($this->config['services']) ? $this->config['services'] : array();
+        $services = $this->config['services'] ?? [];
         foreach ($services as $service) {
             $service::injectTo($di);
         }
