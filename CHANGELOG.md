@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 Nothing yet.
 
 ## v2.0.0 - 2016-09-13
+### Changed
 - Phalcon3 and PHP7 migration
 
 ## v1.0.4 - 2016-09-13
