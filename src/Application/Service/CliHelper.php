@@ -23,6 +23,8 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Phapp\Application\Service;
 
 class CliHelper
@@ -31,7 +33,7 @@ class CliHelper
      * @param array $argv
      * @return array
      */
-    public static function extractArgumentsFrom(array $argv): array
+    public static function extractArgumentsFrom(array $argv) : array
     {
         $arguments = array();
 

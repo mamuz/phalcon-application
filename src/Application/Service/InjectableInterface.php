@@ -23,6 +23,8 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Phapp\Application\Service;
 
 use Phalcon\Di;

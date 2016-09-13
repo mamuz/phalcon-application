@@ -23,6 +23,8 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Phapp\Application;
 
 use Phalcon\Config;
@@ -46,7 +48,7 @@ class DependencyInjector
     /**
      * @return Di
      */
-    public function createForMvc(): Di
+    public function createForMvc() : Di
     {
         $di = new Di\FactoryDefault;
 
@@ -80,7 +82,7 @@ class DependencyInjector
     /**
      * @return Di
      */
-    public function createForCli(): Di
+    public function createForCli() : Di
     {
         $di = new Di\FactoryDefault\Cli;
 

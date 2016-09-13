@@ -23,6 +23,8 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Phapp\Application\Service;
 
 use Phalcon\Mvc\View as PhalconView;
@@ -32,7 +34,7 @@ class View extends PhalconView
     /**
      * @return bool
      */
-    public function isPicked(): bool
+    public function isPicked() : bool
     {
         return !empty($this->_pickView);
     }
