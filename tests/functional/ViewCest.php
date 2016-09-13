@@ -269,7 +269,6 @@ class ViewCest
             . "</innerframe>\n</frame>\n</outerframe>\n";
     }
 
-
     /**
      * @param FunctionalTester $tester
      */
