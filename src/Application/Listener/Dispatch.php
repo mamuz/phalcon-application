@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Phapp\Application\Listener;
 
@@ -34,7 +34,7 @@ use Phalcon\Mvc\View;
 class Dispatch
 {
     /**
-     * @param Event      $event
+     * @param Event $event
      * @param Dispatcher $dispatcher
      */
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
@@ -59,7 +59,7 @@ class Dispatch
     }
 
     /**
-     * @param Event      $event
+     * @param Event $event
      * @param Dispatcher $dispatcher
      */
     public function beforeDispatchLoop(Event $event, Dispatcher $dispatcher)

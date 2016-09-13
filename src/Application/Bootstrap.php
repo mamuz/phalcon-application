@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Phapp\Application;
 
@@ -44,7 +44,7 @@ class Bootstrap
 
     /**
      * @param array $config
-     * @param bool  $isConsole
+     * @param bool $isConsole
      */
     public function __construct(array $config, bool $isConsole)
     {
