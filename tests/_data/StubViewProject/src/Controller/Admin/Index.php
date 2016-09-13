@@ -15,4 +15,10 @@ class Index extends Controller
     {
         $this->view->action = __CLASS__ . '::' . __FUNCTION__ . '()';
     }
+
+    public function pickAction()
+    {
+        $this->view->action = __CLASS__ . '::' . __FUNCTION__ . '()';
+        $this->view->pick("index/custom");
+    }
 }

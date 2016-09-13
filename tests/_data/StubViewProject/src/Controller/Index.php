@@ -44,11 +44,6 @@ class Index extends Controller
         return  new Response(__CLASS__ . '::' . __FUNCTION__ . '()');
     }
 
-    public function echoAction()
-    {
-        echo  __CLASS__ . '::' . __FUNCTION__ . '()';
-    }
-
     public function forwardAction()
     {
         $this->dispatcher->forward(

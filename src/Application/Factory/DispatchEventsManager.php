@@ -23,6 +23,8 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Phapp\Application\Factory;
 
 use Phalcon\Events\Manager;
@@ -33,7 +35,7 @@ class DispatchEventsManager
     /**
      * @return Manager
      */
-    public static function create()
+    public static function create() : Manager
     {
         $manager = new Manager;
         $manager->attach('dispatch', new Dispatch);

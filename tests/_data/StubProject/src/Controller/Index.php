@@ -26,7 +26,17 @@ class Index extends Controller
         $this->getDI()->get('stdClass');
         $this->getDI()->get('stdClass2');
 
-        echo __CLASS__ . '::' . __FUNCTION__ . '()';
+        return __CLASS__ . '::' . __FUNCTION__ . '()';
+    }
+
+    public function forwardAction()
+    {
+        $this->dispatcher->forward(
+            array(
+                "controller" => "index",
+                "action"     => "custom"
+            )
+        );
     }
 
     public function forwardAction()

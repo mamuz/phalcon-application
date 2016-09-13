@@ -7,7 +7,7 @@ build:
 
 cp-artifacts:
 	@docker create --name $(NAME) $(NAME)
-	@docker cp $(NAME):/app/vendor ./
+	@docker cp $(NAME):/phapp/vendor ./
 	@docker rm -fv $(NAME)
 
 clean:
@@ -16,4 +16,4 @@ clean:
 	-@rm -rf vendor
 
 test:
-	@docker run --rm -it -v $(shell pwd):/app $(NAME) ./vendor/bin/codecept run
+	@docker run --rm -it -v $(shell pwd):/phapp $(NAME) ./vendor/bin/codecept run

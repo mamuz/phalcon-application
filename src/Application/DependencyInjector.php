@@ -23,10 +23,13 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Phapp\Application;
 
 use Phalcon\Config;
 use Phalcon\Di;
+use Phalcon\Mvc\View;
 use Phapp\Application\Factory\DispatchEventsManager;
 use Phapp\Application\Service\InjectableInterface;
 
@@ -46,21 +49,23 @@ class DependencyInjector
     /**
      * @return Di
      */
-    public function createForMvc()
+    public function createForMvc() : Di
     {
         $di = new Di\FactoryDefault;
 
         $this->injectConfigTo($di);
 
-        $di->setShared('router', function () {
-            $routes = isset($this->config['routes']) ? $this->config['routes'] : array();
-            return Factory\Router::createFrom($routes);
+        $config = $this->config;
+        $di->setShared('router', function () use ($config) {
+            return Factory\Router::createFrom($config['routes'] ?? []);
         });
 
-        $di->setShared('view', function () {
-            $view = new Service\View;
-            if (isset($this->config['view']['templatePath'])) {
-                $view->setViewsDir($this->config['view']['templatePath']);
+        $di->setShared('view', function () use ($config) {
+            $view = new View;
+            if (isset($config['view']['templatePath'])) {
+                $view->setViewsDir($config['view']['templatePath']);
+            } else {
+                $view->disable();
             }
             return $view;
         });
@@ -79,7 +84,7 @@ class DependencyInjector
     /**
      * @return Di
      */
-    public function createForCli()
+    public function createForCli() : Di
     {
         $di = new Di\FactoryDefault\Cli;
 
@@ -101,8 +106,9 @@ class DependencyInjector
      */
     private function injectConfigTo(Di $di)
     {
-        $di->set('config', function () {
-            return new Config($this->config);
+        $config = $this->config;
+        $di->set('config', function () use ($config) {
+            return new Config($config);
         });
     }
 
@@ -112,7 +118,7 @@ class DependencyInjector
     private function injectServicesTo(Di $di)
     {
         /** @var InjectableInterface[] $services */
-        $services = isset($this->config['services']) ? $this->config['services'] : array();
+        $services = $this->config['services'] ?? [];
         foreach ($services as $service) {
             $service::injectTo($di);
         }

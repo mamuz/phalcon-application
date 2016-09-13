@@ -7,4 +7,4 @@ install:
   - docker build -t mamuz/phalcon-application .
 
 script:
-  - docker run --rm -it mamuz/phalcon-application /bin/sh -c "./vendor/bin/codecept run"
+  - docker run --rm -it mamuz/phalcon-application ./vendor/bin/codecept run

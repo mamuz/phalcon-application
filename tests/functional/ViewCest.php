@@ -168,25 +168,16 @@ class ViewCest
     /**
      * @param FunctionalTester $tester
      */
-    public function seeReturnValueWithoutInnerFrame(FunctionalTester $tester)
+    public function seeReturnValueWithoutAnyFrame(FunctionalTester $tester)
     {
         $this->request = '/index/return';
-        $this->expectedOutput = '<outerframe><frame controller="index">' . "</frame>\n</outerframe>\n";
+        $this->expectedOutput = 'StubViewProject\Controller\Index::returnAction()';
     }
 
     /**
      * @param FunctionalTester $tester
      */
     public function seeResponseContentWithoutAnyFrame(FunctionalTester $tester)
-    {
-        $this->request = '/index/response';
-        $this->expectedOutput = 'StubViewProject\Controller\Index::responseAction()';
-    }
-
-    /**
-     * @param FunctionalTester $tester
-     */
-    public function seeEchoValueWithoutAnyFrame(FunctionalTester $tester)
     {
         $this->request = '/index/response';
         $this->expectedOutput = 'StubViewProject\Controller\Index::responseAction()';
@@ -275,6 +266,17 @@ class ViewCest
         $this->request = '/admin/custom/index';
         $this->expectedOutput = '<outerframe><frame controller="admin"><innerframe action="index">'
             . 'StubViewProject\Controller\Admin\Custom::indexAction()'
+            . "</innerframe>\n</frame>\n</outerframe>\n";
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function seePickedPageInAdminModule(FunctionalTester $tester)
+    {
+        $this->request = '/admin/index/pick';
+        $this->expectedOutput = '<outerframe><frame controller="admin"><innerframe action="custom">'
+            . 'StubViewProject\Controller\Admin\Index::pickAction()'
             . "</innerframe>\n</frame>\n</outerframe>\n";
     }
 

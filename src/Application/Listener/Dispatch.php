@@ -23,6 +23,8 @@
  * SOFTWARE.
  */
 
+declare(strict_types=1);
+
 namespace Phapp\Application\Listener;
 
 use Phalcon\Dispatcher;
@@ -35,26 +37,23 @@ class Dispatch
      * @param Event      $event
      * @param Dispatcher $dispatcher
      */
-    public function afterExecuteRoute(Event $event, Dispatcher $dispatcher)
+    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
-        if ($dispatcher->getReturnedValue()) {
-            return;
-        }
-
         if ($dispatcher->getNamespaceName() !== $dispatcher->getDefaultNamespace()) {
-            /** @var \Phapp\Application\Service\View $view */
+            /** @var View $view */
             $view = $dispatcher->getDI()->get('view');
 
-            if ($view->isDisabled() || $view->isPicked()) {
+            if ($view->isDisabled()) {
                 return;
             }
 
-            $viewPathParts = array_diff(
+            $viewPathParts = array_values(array_diff(
                 explode('\\', strtolower($dispatcher->getHandlerClass())),
                 explode('\\', strtolower($dispatcher->getDefaultNamespace()))
-            );
+            ));
             $viewPathParts[] = $dispatcher->getActionName();
 
+            $view->setLayout($viewPathParts[0]);
             $view->pick(implode(DIRECTORY_SEPARATOR, $viewPathParts));
         }
     }
@@ -65,16 +64,14 @@ class Dispatch
      */
     public function beforeDispatchLoop(Event $event, Dispatcher $dispatcher)
     {
-        if (!$dispatcher->getDI()->has('request')
-            || $dispatcher->getReturnedValue()
-        ) {
+        if (!$dispatcher->getDI()->has('request')) {
             return;
         }
 
         /** @var \Phalcon\Http\Request $request */
         $request = $dispatcher->getDI()->get('request');
         if ($request->isAjax()) {
-            /** @var \Phapp\Application\Service\View $view */
+            /** @var View $view */
             $view = $dispatcher->getDI()->get('view');
             $view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         }
