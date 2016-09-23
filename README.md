@@ -170,7 +170,7 @@ Phapp\Application\Bootstrap::init($config)->runApplicationOn($_SERVER);
 
 Let's imagine that the application is bootstrapped inside `index.php`
 
-```php
+```sh
 php index.php mailing send reminder
 ```
 
