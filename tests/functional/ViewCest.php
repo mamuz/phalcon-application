@@ -39,7 +39,7 @@ class ViewCest
             ],
         ],
         'view'       => [
-            'templatePath' => CODECEPT_DATA_DIR . '/StubViewProject/view/',
+            'templatePath' => CODECEPT_DATA_DIR . '/StubViewProject/view',
         ],
         'services'   => [
             'stdClass' => 'StubProject\Service\StdClass',
