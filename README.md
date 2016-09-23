@@ -60,7 +60,7 @@ Phapp\Application\Bootstrap::init($config)->runApplicationOn($_SERVER);
 For more details have a look to the functional tests at https://github.com/mamuz/phalcon-application/blob/master/tests/functional/ActionDomainResponseCest.php
 based on that [example project](https://github.com/mamuz/phalcon-application/tree/master/tests/_data/StubProject).
 
-### Bootstrapping an application with view support (mostly for output rendered HTML)
+### Bootstrapping an application with view support (mostly to response with rendered HTML)
 
 Check https://docs.phalconphp.com/en/latest/reference/views.html for using views in Phalcon.
 
