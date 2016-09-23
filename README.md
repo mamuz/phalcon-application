@@ -179,3 +179,7 @@ That will call the `send` action from the `mailing` task with invoking `reminder
 For more details have a look to the functional tests at https://github.com/mamuz/phalcon-application/blob/master/tests/functional/CommandLineCest.php
 based on that [example project](https://github.com/mamuz/phalcon-application/tree/master/tests/_data/StubProject).
 
+## Application Skeleton
+
+To have a good starting place you should check the [skeleton](https://github.com/mamuz/phalcon-skeleton)
+which is based on this project.
