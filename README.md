@@ -73,9 +73,9 @@ Like this:
 <outerframe>
     I am the main layout.
     <frame>
-        I am the controller based layout
+        I am the controller based layout.
         <innerframe>
-            I am the action based layout
+            I am the action based layout.
         </innerframe>
     </frame>
 </outerframe>
