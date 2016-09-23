@@ -145,7 +145,7 @@ Check https://docs.phalconphp.com/en/latest/reference/cli.html#tasks for creatin
 $config = [
     'dispatcher' => [
         // define beginning class namespace for your tasks
-        'taskDefaultNamespace' => 'Command\Controller',
+        'taskDefaultNamespace' => 'Command\Task',
     ],
     // register custom service factories implementing the InjectableInterface
     // see: https://github.com/mamuz/phalcon-application/blob/master/src/Application/Service/InjectableInterface.php
