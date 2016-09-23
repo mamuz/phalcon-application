@@ -73,9 +73,11 @@ So each controller action can have an own template for rendering.
 For instance you have a controller with two actions like:
 - `User::login`
 - `User::logout`
+
 Leads to two view templates located at:
 - `{viewbasepath}\user\login.phtml`
 - `{viewbasepath}\user\logout.phtml`
+
 Regarding the three-step view template pattern you can place these ones at:
 - `{viewbasepath}\index.phtml` (outerframe must be named as index and needs to be placed at the root level)
 - `{viewbasepath}\layouts\user.phtml` (frame must be named like the controller and needs to be placed inside layouts folder)
