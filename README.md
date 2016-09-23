@@ -38,7 +38,8 @@ $config = [
             'httpMethods' => ['GET'],
         ],
     ],
-    // register custom service factories implementing the InjectableInterface (see: https://github.com/mamuz/phalcon-application/blob/master/src/Application/Service/InjectableInterface.php)
+    // register custom service factories implementing the InjectableInterface
+    // see: https://github.com/mamuz/phalcon-application/blob/master/src/Application/Service/InjectableInterface.php
     // Key is the name to refer to Phalcon's DI, value is the FQCN of the service factory
     'services' => [
         'user'   => 'User\Service\Factory',
