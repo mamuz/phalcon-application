@@ -62,7 +62,7 @@ based on that [example project](https://github.com/mamuz/phalcon-application/tre
 
 ### Bootstrapping an application with view support (mostly for output rendered HTML)
 
-Check https://docs.phalconphp.com/uk/latest/reference/views.html for using views in Phalcon.
+Check https://docs.phalconphp.com/en/latest/reference/views.html for using views in Phalcon.
 
 Phalcon's view engine supports the three-step view template pattern.
 That means you can have a main-layout (outerframe), which includes a controller based layout (frame),
