@@ -68,6 +68,19 @@ Phalcon's view engine supports the three-step view template pattern.
 That means you can have a main-layout (outerframe), which includes a controller based layout (frame),
 which in turn includes an action based layout (innerframe).
 
+Like this:
+```html
+<outerframe>
+    I am the main layout.
+    <frame>
+        I am the controller based layout
+        <innerframe>
+            I am the action based layout
+        </innerframe>
+    </frame>
+</outerframe>
+```
+
 So each controller action can have an own template for rendering.
 
 For instance you have a controller with two actions like:
