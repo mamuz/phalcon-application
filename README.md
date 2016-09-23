@@ -74,7 +74,7 @@ For instance you have a controller with two actions like:
 - `User::login`
 - `User::logout`
 
-Leads to two view templates located at:
+This leads to two view templates located at:
 - `{viewbasepath}\user\login.phtml`
 - `{viewbasepath}\user\logout.phtml`
 
