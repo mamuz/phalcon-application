@@ -71,8 +71,8 @@ which in turn includes an action based layout (innerframe).
 So each controller action can have an own template for rendering.
 
 For instance you have a controller with two actions like:
-- `User::login`
-- `User::logout`
+- `User::loginAction`
+- `User::logoutAction`
 
 This leads to two view templates located at:
 - `{viewbasepath}\user\login.phtml`
