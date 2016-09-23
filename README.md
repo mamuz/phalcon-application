@@ -171,7 +171,7 @@ Phapp\Application\Bootstrap::init($config)->runApplicationOn($_SERVER);
 Let's imagine that the application is bootstrapped inside `index.php`
 
 ```sh
-php index.php mailing send reminder
+> php index.php mailing send reminder
 ```
 
 That will call the `send` action from the `mailing` task with invoking `reminder` as an argument.
