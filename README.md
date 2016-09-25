@@ -13,6 +13,14 @@ simple and customizable application bootstrapping.
 
 - Phalcon3 is needed, follow install steps at https://github.com/phalcon/cphalcon
 
+##  Installation
+
+Install the latest version with
+
+```sh
+$ composer require mamuz/phalcon-application
+```
+
 ## Features
 
 - Autoloading with Composer
@@ -171,7 +179,7 @@ Phapp\Application\Bootstrap::init($config)->runApplicationOn($_SERVER);
 Let's imagine that the application is bootstrapped inside `index.php`
 
 ```sh
-> php index.php mailing send reminder
+$ php index.php mailing send reminder
 ```
 
 That will call the `send` action from the `mailing` task with invoking `reminder` as an argument.
