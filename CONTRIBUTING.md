@@ -30,7 +30,9 @@ Check [this](http://choosealicense.com/licenses/mit) for more informations about
 
 Add a functional test for your pull-request.
 
-You can run the tests by calling `make test` from the root of the project.
+You can run tests on provisioned docker image which requires [Docker](https://docs.docker.com).
+
+Create the image with `make build` and run tests with `make test`.
 
 ## Travis
 
