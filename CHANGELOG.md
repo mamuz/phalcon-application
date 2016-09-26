@@ -1,9 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.0.1 - UNRELEASED
-- Documentation improvement
-- Add new parameter `position` to router configs
+## v2.1.1 - UNRELEASED
+Nothing yet.
+
+## v2.1.0 - 2016-09-26
+### Added
+- New parameter `position` to router configs
 
 ## v2.0.0 - 2016-09-13
 ### Changed
