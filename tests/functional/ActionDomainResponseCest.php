@@ -15,6 +15,7 @@ class ActionDomainResponseCest
                     'action'     => 2,
                 ],
                 'httpMethods' => ['GET'],
+                'position'    => \Phalcon\Mvc\Router::POSITION_LAST,
             ],
             'defaultController' => [
                 'pattern'     => '/:controller',
@@ -22,6 +23,7 @@ class ActionDomainResponseCest
                     'controller' => 1,
                 ],
                 'httpMethods' => ['GET'],
+                'position' => \Phalcon\Mvc\Router::POSITION_FIRST,
             ],
             'static'            => [
                 'pattern'     => '/custompost',

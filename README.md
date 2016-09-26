@@ -35,15 +35,16 @@ $ composer require mamuz/phalcon-application
 ```php
 $config = [
     'dispatcher' => [
-        // define beginning class namespace for your controllers
+        // define class namespace identifier of your controllers
         'controllerDefaultNamespace' => 'Rest\Controller',
     ],
     'routes' => [
         // see Router::add in https://docs.phalconphp.com/en/latest/reference/routing.html
         'default' => [
             'pattern'     => '/:controller/:action',
-            'paths'       => ['controller' => 1, 'action' => 2],
-            'httpMethods' => ['GET'],
+            'paths'       => ['controller' => 1, 'action' => 2], // Optional
+            'httpMethods' => ['GET'], // Optional
+            'position'    => 1, // Optional
         ],
     ],
     // register custom service factories implementing the InjectableInterface
@@ -108,15 +109,16 @@ In case of ajax requests (XHR) outerframe and frame rendering is disabled, which
 ```php
 $config = [
     'dispatcher' => [
-        // define beginning class namespace for your controllers
+        // define class namespace identifier of your controllers
         'controllerDefaultNamespace' => 'Mvc\Controller',
     ],
     'routes' => [
         // see Router::add in https://docs.phalconphp.com/en/latest/reference/routing.html
         'default' => [
             'pattern'     => '/:controller/:action',
-            'paths'       => ['controller' => 1, 'action' => 2],
-            'httpMethods' => ['GET'],
+            'paths'       => ['controller' => 1, 'action' => 2], // Optional
+            'httpMethods' => ['GET'], // Optional
+            'position'    => 1, // Optional
         ],
     ],
     // register custom service factories implementing the InjectableInterface
@@ -152,12 +154,12 @@ Check https://docs.phalconphp.com/en/latest/reference/cli.html#tasks for creatin
 ```php
 $config = [
     'dispatcher' => [
-        // define beginning class namespace for your tasks
+        // define class namespace identifier of your tasks
         'taskDefaultNamespace' => 'Command\Task',
     ],
     // register custom service factories implementing the InjectableInterface
     // see: https://github.com/mamuz/phalcon-application/blob/master/src/Application/Service/InjectableInterface.php
-    // Key is the name to refer to Phalcon's DI, value is the FQCN of the service factory
+    // Key is the name to refer to Phalcon's DI, value is the FQCN of the related service factory
     'services' => [
         'user'   => 'User\Service\Factory',
         'logger' => 'Logger\Service\Factory',

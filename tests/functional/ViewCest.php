@@ -14,22 +14,23 @@ class ViewCest
             'controllerDefaultNamespace' => 'StubViewProject\Controller',
         ],
         'routes'     => [
-            'default' => [
+            'default'       => [
                 'pattern' => '/:controller/:action',
                 'paths'   => [
                     'controller' => 1,
                     'action'     => 2,
                 ],
             ],
-            'module'  => [
-                'pattern' => '/admin/:controller/:action',
-                'paths'   => [
+            'module'        => [
+                'pattern'  => '/admin/:controller/:action',
+                'paths'    => [
                     'namespace'  => 'StubViewProject\Controller\Admin',
                     'controller' => 1,
                     'action'     => 2,
                 ],
+                'position' => \Phalcon\Mvc\Router::POSITION_FIRST,
             ],
-            'moduleDefault'  => [
+            'moduleDefault' => [
                 'pattern' => '/admin',
                 'paths'   => [
                     'namespace'  => 'StubViewProject\Controller\Admin',

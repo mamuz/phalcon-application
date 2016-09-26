@@ -45,7 +45,8 @@ class Router
             $router->add(
                 $route['pattern'],
                 $route['paths'] ?? null,
-                $route['httpMethods'] ?? null
+                $route['httpMethods'] ?? null,
+                $route['position'] ?? MvcRouter::POSITION_LAST
             );
         }
 
