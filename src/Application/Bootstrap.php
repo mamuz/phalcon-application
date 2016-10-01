@@ -29,6 +29,7 @@ namespace Phapp\Application;
 
 use Phalcon\Cli\Console;
 use Phalcon\Mvc\Application;
+use Phapp\Application\Factory\DiBuilder;
 use Phapp\Application\Service\CliHelper;
 
 class Bootstrap

@@ -25,11 +25,10 @@
 
 declare(strict_types = 1);
 
-namespace Phapp\Application;
+namespace Phapp\Application\Factory;
 
 use Phalcon\Config;
 use Phalcon\Di;
-use Phapp\Application\Factory\DispatchEventsManager;
 use Phapp\Application\Service\InjectableInterface;
 
 class DiBuilder
@@ -47,7 +46,7 @@ class DiBuilder
         });
 
         $di->setShared('router', function () use ($config) {
-            return Factory\Router::createFrom($config['routes'] ?? []);
+            return Router::createFrom($config['routes'] ?? []);
         });
 
         /** @var \Phalcon\Mvc\Dispatcher $dispatcher */
@@ -57,7 +56,7 @@ class DiBuilder
 
         if (isset($config['view'])) {
             $di->setShared('view', function () use ($config, $dispatcher) {
-                return Factory\View::createFrom($config['view'] ?? [], $dispatcher);
+                return View::createFrom($config['view'] ?? [], $dispatcher);
             });
         }
 
