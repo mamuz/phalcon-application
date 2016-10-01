@@ -69,7 +69,10 @@ class Bootstrap
             $application->handle(CliHelper::extractArgumentsFrom($server['argv']));
         } else {
             $application = new Application(DiBuilder::createMvcFrom($this->config));
-            $application->useImplicitView(isset($this->config['view']))->handle()->send();
+            $application->useImplicitView(isset($this->config['view']));
+            if ($response = $application->handle()) {
+                $response->send();
+            }
         }
     }
 }
