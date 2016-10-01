@@ -50,4 +50,3 @@ class CliHelper
         return $arguments;
     }
 }
-
