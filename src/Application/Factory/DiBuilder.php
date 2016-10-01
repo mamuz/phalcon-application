@@ -51,7 +51,7 @@ class DiBuilder
         });
 
         /** @var \Phalcon\Mvc\Dispatcher $dispatcher */
-        $dispatcher = $di->get('dispatcher');
+        $dispatcher = $di->getShared('dispatcher');
         $dispatcher->setEventsManager(new EventManager);
         $dispatcher->setControllerSuffix(null);
         $dispatcher->setDefaultNamespace($config['dispatcher']['controllerDefaultNamespace']);
@@ -83,7 +83,7 @@ class DiBuilder
         });
 
         /** @var \Phalcon\Cli\Dispatcher $dispatcher */
-        $dispatcher = $di->get('dispatcher');
+        $dispatcher = $di->getShared('dispatcher');
         $dispatcher->setEventsManager(new EventManager);
         $dispatcher->setTaskSuffix(null);
         $dispatcher->setDefaultNamespace($config['dispatcher']['taskDefaultNamespace']);
