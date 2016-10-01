@@ -25,14 +25,36 @@
 
 declare(strict_types = 1);
 
-namespace Phapp\Application\Listener;
+namespace Phapp\Application\Factory;
 
-use Phalcon\Dispatcher;
 use Phalcon\Events\Event;
-use Phalcon\Mvc\View;
+use Phalcon\Events\Manager as EventManager;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\View as MvcView;
 
-class Dispatch
+class View
 {
+    /**
+     * @param array $config
+     * @param Dispatcher $dispatcher
+     * @return MvcView
+     */
+    public static function createFrom(array $config, Dispatcher $dispatcher) : MvcView
+    {
+        $view = new MvcView;
+
+        if (isset($config['templatePath'])) {
+            $view->setViewsDir($config['templatePath']);
+            $manager = new EventManager;
+            $manager->attach('dispatch', new self);
+            $dispatcher->setEventsManager($manager);
+        } else {
+            $view->disable();
+        }
+
+        return $view;
+    }
+
     /**
      * @param Event $event
      * @param Dispatcher $dispatcher
@@ -40,7 +62,7 @@ class Dispatch
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
         if ($dispatcher->getNamespaceName() !== $dispatcher->getDefaultNamespace()) {
-            /** @var View $view */
+            /** @var MvcView $view */
             $view = $dispatcher->getDI()->get('view');
 
             if ($view->isDisabled()) {
@@ -71,9 +93,9 @@ class Dispatch
         /** @var \Phalcon\Http\Request $request */
         $request = $dispatcher->getDI()->get('request');
         if ($request->isAjax()) {
-            /** @var View $view */
+            /** @var MvcView $view */
             $view = $dispatcher->getDI()->get('view');
-            $view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+            $view->setRenderLevel(MvcView::LEVEL_ACTION_VIEW);
         }
     }
 }

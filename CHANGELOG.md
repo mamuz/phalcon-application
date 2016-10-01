@@ -1,8 +1,8 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.1.1 - UNRELEASED
-Nothing yet.
+## v2.2.0 - UNRELEASED
+- Internal refactoring with internal BCs
 
 ## v2.1.0 - 2016-09-26
 ### Added

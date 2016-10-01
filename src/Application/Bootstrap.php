@@ -39,9 +39,6 @@ class Bootstrap
     /** @var bool */
     private $isConsole;
 
-    /** @var DependencyInjector */
-    private $di;
-
     /**
      * @param array $config
      * @param bool $isConsole
@@ -50,7 +47,6 @@ class Bootstrap
     {
         $this->config = $config;
         $this->isConsole = $isConsole;
-        $this->di = new DependencyInjector($this->config);
     }
 
     /**
@@ -68,29 +64,15 @@ class Bootstrap
     public function runApplicationOn(array $server)
     {
         if ($this->isConsole) {
-            $arguments = CliHelper::extractArgumentsFrom($server['argv']);
-            $this->createCliApplication()->handle($arguments);
+            $application = new Console(DiBuilder::createCliFrom($this->config));
+            $application->handle(CliHelper::extractArgumentsFrom($server['argv']));
         } else {
-            $response = $this->createMvcApplication()->handle();
+            $application = new Application(DiBuilder::createMvcFrom($this->config));
+            $application->useImplicitView(isset($this->config['view']));
+            $response = $application->handle();
             if ($response instanceof \Phalcon\Http\ResponseInterface) {
                 $response->send();
             }
         }
-    }
-
-    /**
-     * @return Application
-     */
-    private function createMvcApplication() : Application
-    {
-        return new Application($this->di->createForMvc());
-    }
-
-    /**
-     * @return Console
-     */
-    private function createCliApplication() : Console
-    {
-        return new Console($this->di->createForCli());
     }
 }

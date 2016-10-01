@@ -29,98 +29,68 @@ namespace Phapp\Application;
 
 use Phalcon\Config;
 use Phalcon\Di;
-use Phalcon\Mvc\View;
 use Phapp\Application\Factory\DispatchEventsManager;
 use Phapp\Application\Service\InjectableInterface;
 
-class DependencyInjector
+class DiBuilder
 {
-    /** @var array */
-    private $config;
-
     /**
      * @param array $config
+     * @return Di\FactoryDefault
      */
-    public function __construct(array $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * @return Di
-     */
-    public function createForMvc() : Di
+    public static function createMvcFrom(array $config) : Di\FactoryDefault
     {
         $di = new Di\FactoryDefault;
 
-        $this->injectConfigTo($di);
+        $di->set('config', function () use ($config) {
+            return new Config($config);
+        });
 
-        $config = $this->config;
         $di->setShared('router', function () use ($config) {
             return Factory\Router::createFrom($config['routes'] ?? []);
         });
 
-        $di->setShared('view', function () use ($config) {
-            $view = new View;
-            if (isset($config['view']['templatePath'])) {
-                $view->setViewsDir($config['view']['templatePath']);
-            } else {
-                $view->disable();
-            }
-            return $view;
-        });
-
         /** @var \Phalcon\Mvc\Dispatcher $dispatcher */
         $dispatcher = $di->get('dispatcher');
-        $dispatcher->setEventsManager(DispatchEventsManager::create());
         $dispatcher->setControllerSuffix(null);
-        $dispatcher->setDefaultNamespace($this->config['dispatcher']['controllerDefaultNamespace']);
+        $dispatcher->setDefaultNamespace($config['dispatcher']['controllerDefaultNamespace']);
 
-        $this->injectServicesTo($di);
+        if (isset($config['view'])) {
+            $di->setShared('view', function () use ($config, $dispatcher) {
+                return Factory\View::createFrom($config['view'] ?? [], $dispatcher);
+            });
+        }
+
+        foreach ($config['services'] ?? [] as $service) {
+            /** @var InjectableInterface $service */
+            $service::injectTo($di);
+        }
 
         return $di;
     }
 
     /**
-     * @return Di
+     * @param array $config
+     * @return Di\FactoryDefault\Cli
      */
-    public function createForCli() : Di
+    public static function createCliFrom(array $config) : Di\FactoryDefault\Cli
     {
         $di = new Di\FactoryDefault\Cli;
 
-        $this->injectConfigTo($di);
-
-        /** @var \Phalcon\Cli\Dispatcher $dispatcher */
-        $dispatcher = $di->get('dispatcher');
-        $dispatcher->setEventsManager(DispatchEventsManager::create());
-        $dispatcher->setTaskSuffix(null);
-        $dispatcher->setDefaultNamespace($this->config['dispatcher']['taskDefaultNamespace']);
-
-        $this->injectServicesTo($di);
-
-        return $di;
-    }
-
-    /**
-     * @param Di $di
-     */
-    private function injectConfigTo(Di $di)
-    {
-        $config = $this->config;
         $di->set('config', function () use ($config) {
             return new Config($config);
         });
-    }
 
-    /**
-     * @param Di $di
-     */
-    private function injectServicesTo(Di $di)
-    {
-        /** @var InjectableInterface[] $services */
-        $services = $this->config['services'] ?? [];
-        foreach ($services as $service) {
+        /** @var \Phalcon\Cli\Dispatcher $dispatcher */
+        $dispatcher = $di->get('dispatcher');
+        $dispatcher->setTaskSuffix(null);
+        $dispatcher->setDefaultNamespace($config['dispatcher']['taskDefaultNamespace']);
+
+        foreach ($config['services'] ?? [] as $service) {
+            /** @var InjectableInterface $service */
             $service::injectTo($di);
         }
+
+        return $di;
     }
 }
