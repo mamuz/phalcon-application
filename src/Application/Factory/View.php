@@ -28,7 +28,6 @@ declare(strict_types = 1);
 namespace Phapp\Application\Factory;
 
 use Phalcon\Events\Event;
-use Phalcon\Events\Manager as EventManager;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\View as MvcView;
 
@@ -45,9 +44,7 @@ class View
 
         if (isset($config['templatePath'])) {
             $view->setViewsDir($config['templatePath']);
-            $manager = new EventManager;
-            $manager->attach('dispatch', new self);
-            $dispatcher->setEventsManager($manager);
+            $dispatcher->getEventsManager()->attach('dispatch', new self);
         } else {
             $view->disable();
         }

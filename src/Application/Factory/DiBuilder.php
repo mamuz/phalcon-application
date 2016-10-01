@@ -29,6 +29,7 @@ namespace Phapp\Application\Factory;
 
 use Phalcon\Config;
 use Phalcon\Di;
+use Phalcon\Events\Manager as EventManager;
 use Phapp\Application\Service\InjectableInterface;
 
 class DiBuilder
@@ -51,6 +52,7 @@ class DiBuilder
 
         /** @var \Phalcon\Mvc\Dispatcher $dispatcher */
         $dispatcher = $di->get('dispatcher');
+        $dispatcher->setEventsManager(new EventManager);
         $dispatcher->setControllerSuffix(null);
         $dispatcher->setDefaultNamespace($config['dispatcher']['controllerDefaultNamespace']);
 
@@ -82,6 +84,7 @@ class DiBuilder
 
         /** @var \Phalcon\Cli\Dispatcher $dispatcher */
         $dispatcher = $di->get('dispatcher');
+        $dispatcher->setEventsManager(new EventManager);
         $dispatcher->setTaskSuffix(null);
         $dispatcher->setDefaultNamespace($config['dispatcher']['taskDefaultNamespace']);
 
