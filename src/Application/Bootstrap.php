@@ -68,11 +68,7 @@ class Bootstrap
             $application->handle(CliHelper::extractArgumentsFrom($server['argv']));
         } else {
             $application = new Application(DiBuilder::createMvcFrom($this->config));
-            $application->useImplicitView(isset($this->config['view']));
-            $response = $application->handle();
-            if ($response instanceof \Phalcon\Http\ResponseInterface) {
-                $response->send();
-            }
+            $application->useImplicitView(isset($this->config['view']))->handle()->send();
         }
     }
 }
