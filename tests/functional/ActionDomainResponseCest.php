@@ -23,7 +23,7 @@ class ActionDomainResponseCest
                     'controller' => 1,
                 ],
                 'httpMethods' => ['GET'],
-                'position' => \Phalcon\Mvc\Router::POSITION_FIRST,
+                'position'    => \Phalcon\Mvc\Router::POSITION_FIRST,
             ],
             'static'            => [
                 'pattern'     => '/custompost',
@@ -35,8 +35,9 @@ class ActionDomainResponseCest
             ],
         ],
         'services'   => [
-            'stdClass'  => 'StubProject\Service\StdClass',
-            'stdClass2' => 'StubProject\Service\StdClass2',
+            'stdClass'     => 'StubProject\Service\StdClass',
+            'stdClass2'    => 'StubProject\Service\StdClass2',
+            'errorHandler' => 'StubProject\Service\ErrorHandler',
         ],
         'customKey'  => true,
     ];
@@ -46,6 +47,9 @@ class ActionDomainResponseCest
 
     /** @var string */
     private $expectedAction;
+
+    /** @var string */
+    private $forcedExpectatation;
 
     /** @var string */
     private $request;
@@ -61,8 +65,12 @@ class ActionDomainResponseCest
 
         $tester->comment('`HTTP ' . $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'] . '`');
 
-        $expected = $this->config['dispatcher']['controllerDefaultNamespace'] . '\\'
-            . ucfirst($this->expectedController) . '::' . lcfirst($this->expectedAction) . 'Action()';
+        if ($this->forcedExpectatation) {
+            $expected = $this->forcedExpectatation;
+        } else {
+            $expected = $this->config['dispatcher']['controllerDefaultNamespace'] . '\\'
+                . ucfirst($this->expectedController) . '::' . lcfirst($this->expectedAction) . 'Action()';
+        }
 
         ob_start();
         $tester->execute(function () {
@@ -71,7 +79,7 @@ class ActionDomainResponseCest
         });
         $tester->assertSame($expected, ob_get_clean());
 
-        $this->request = null;
+        $this->request = $this->forcedExpectatation = null;
         unset($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
     }
 
@@ -173,5 +181,23 @@ class ActionDomainResponseCest
         $this->expectedController = 'index';
         $this->expectedAction = 'custom';
         $this->request = 'GET /index/forward';
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function notFoundAction(FunctionalTester $tester)
+    {
+        $this->forcedExpectatation = 'NotFound';
+        $this->request = 'GET /taz';
+    }
+
+    /**
+     * @param FunctionalTester $tester
+     */
+    public function errorAction(FunctionalTester $tester)
+    {
+        $this->forcedExpectatation = 'Error';
+        $this->request = 'GET /index/exception';
     }
 }

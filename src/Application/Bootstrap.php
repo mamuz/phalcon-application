@@ -27,10 +27,7 @@ declare(strict_types = 1);
 
 namespace Phapp\Application;
 
-use Phalcon\Cli\Console;
-use Phalcon\Mvc\Application;
-use Phapp\Application\Factory\DiBuilder;
-use Phapp\Application\Service\CliHelper;
+use Phapp\Application\Factory\Application;
 
 class Bootstrap
 {
@@ -42,7 +39,7 @@ class Bootstrap
 
     /**
      * @param array $config
-     * @param bool $isConsole
+     * @param bool  $isConsole
      */
     public function __construct(array $config, bool $isConsole)
     {
@@ -65,12 +62,9 @@ class Bootstrap
     public function runApplicationOn(array $server)
     {
         if ($this->isConsole) {
-            $application = new Console(DiBuilder::createCliFrom($this->config));
-            $application->handle(CliHelper::extractArgumentsFrom($server['argv']));
+            Application::createCliFrom($this->config)->setArgument($server['argv'])->handle();
         } else {
-            $application = new Application(DiBuilder::createMvcFrom($this->config));
-            $application->useImplicitView(isset($this->config['view']));
-            if ($response = $application->handle()) {
+            if ($response = Application::createMvcFrom($this->config)->handle()) {
                 $response->send();
             }
         }

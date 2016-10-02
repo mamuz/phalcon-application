@@ -1,8 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.2.0 - UNRELEASED
-- Internal refactoring with internal BCs
+## v2.2.1 - UNRELEASED
+Nothing yet.
+
+## v2.2.0 - 2016-10-02
+### Fixed
+- Ensure DI response object contains returned value of dispatched action
+### Added
+- Make application injectable for DI's `applicationEventManager`
+- Support options (arguments with `--`, `-`, `=`) for cli application
+### Changed
+- Internal refactoring (renamings) with internal BCs
 
 ## v2.1.0 - 2016-09-26
 ### Added

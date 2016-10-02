@@ -6,22 +6,22 @@ use Phalcon\Cli\Task;
 
 class Main extends Task
 {
-    function mainAction()
+    public function mainAction()
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
 
-    function customAction()
+    public function customAction()
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '()';
     }
-    
-    function argumentAction(array $arguments)
+
+    public function argumentAction(array $arguments)
     {
         echo __CLASS__ . '::' . __FUNCTION__ . '(' . implode(', ', $arguments). ')';
     }
 
-    function serviceAction()
+    public function serviceAction()
     {
         if (false === $this->getDI()->get('config')['customKey']) {
             throw new \Exception;
@@ -31,5 +31,10 @@ class Main extends Task
         $this->getDI()->get('stdClass2');
 
         echo __CLASS__ . '::' . __FUNCTION__ . '()';
+    }
+
+    public function errorAction()
+    {
+        throw new \Exception('error');
     }
 }

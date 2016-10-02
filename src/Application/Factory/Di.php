@@ -28,19 +28,17 @@ declare(strict_types = 1);
 namespace Phapp\Application\Factory;
 
 use Phalcon\Config;
-use Phalcon\Di;
-use Phalcon\Events\Manager as EventManager;
 use Phapp\Application\Service\InjectableInterface;
 
-class DiBuilder
+class Di
 {
     /**
      * @param array $config
-     * @return Di\FactoryDefault
+     * @return \Phalcon\Di\FactoryDefault
      */
-    public static function createMvcFrom(array $config) : Di\FactoryDefault
+    public static function createMvcFrom(array $config) : \Phalcon\Di\FactoryDefault
     {
-        $di = new Di\FactoryDefault;
+        $di = new \Phalcon\Di\FactoryDefault;
 
         $di->set('config', function () use ($config) {
             return new Config($config);
@@ -50,15 +48,13 @@ class DiBuilder
             return Router::createFrom($config['routes'] ?? []);
         });
 
-        /** @var \Phalcon\Mvc\Dispatcher $dispatcher */
-        $dispatcher = $di->getShared('dispatcher');
-        $dispatcher->setEventsManager(new EventManager);
-        $dispatcher->setControllerSuffix(null);
-        $dispatcher->setDefaultNamespace($config['dispatcher']['controllerDefaultNamespace']);
+        $di->setShared('dispatcher', function () use ($config) {
+            return Dispatcher::createMvcFrom($config['dispatcher']);
+        });
 
         if (isset($config['view'])) {
-            $di->setShared('view', function () use ($config, $dispatcher) {
-                return View::createFrom($config['view'] ?? [], $dispatcher);
+            $di->setShared('view', function () use ($config, $di) {
+                return View::createFrom($config['view'] ?? [], $di);
             });
         }
 
@@ -72,21 +68,19 @@ class DiBuilder
 
     /**
      * @param array $config
-     * @return Di\FactoryDefault\Cli
+     * @return \Phalcon\Di\FactoryDefault\Cli
      */
-    public static function createCliFrom(array $config) : Di\FactoryDefault\Cli
+    public static function createCliFrom(array $config) : \Phalcon\Di\FactoryDefault\Cli
     {
-        $di = new Di\FactoryDefault\Cli;
+        $di = new \Phalcon\Di\FactoryDefault\Cli;
 
         $di->set('config', function () use ($config) {
             return new Config($config);
         });
 
-        /** @var \Phalcon\Cli\Dispatcher $dispatcher */
-        $dispatcher = $di->getShared('dispatcher');
-        $dispatcher->setEventsManager(new EventManager);
-        $dispatcher->setTaskSuffix(null);
-        $dispatcher->setDefaultNamespace($config['dispatcher']['taskDefaultNamespace']);
+        $di->setShared('dispatcher', function () use ($config) {
+            return Dispatcher::createCliFrom($config['dispatcher']);
+        });
 
         foreach ($config['services'] ?? [] as $service) {
             /** @var InjectableInterface $service */

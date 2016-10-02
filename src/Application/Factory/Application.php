@@ -25,28 +25,41 @@
 
 declare(strict_types = 1);
 
-namespace Phapp\Application\Service;
+namespace Phapp\Application\Factory;
 
-class CliHelper
+use Phalcon\Cli\Console;
+use Phalcon\Mvc\Application as MvcApplication;
+
+class Application
 {
     /**
-     * @param array $argv
-     * @return array
+     * @param array $config
+     * @return MvcApplication
      */
-    public static function extractArgumentsFrom(array $argv) : array
+    public static function createMvcFrom(array $config) : MvcApplication
     {
-        $arguments = array();
+        $di = Di::createMvcFrom($config);
+        $application = new MvcApplication($di);
+        if ($di->has('applicationEventManager')) {
+            $application->setEventsManager($di->getShared('applicationEventManager'));
+        }
+        $application->useImplicitView(isset($config['view']));
 
-        foreach ($argv as $k => $arg) {
-            if ($k == 1) {
-                $arguments['task'] = $arg;
-            } elseif ($k == 2) {
-                $arguments['action'] = $arg;
-            } elseif ($k >= 3) {
-                $arguments['params'][] = $arg;
-            }
+        return $application;
+    }
+
+    /**
+     * @param array $config
+     * @return Console
+     */
+    public static function createCliFrom(array $config) : Console
+    {
+        $di = Di::createCliFrom($config);
+        $application = new Console($di);
+        if ($di->has('applicationEventManager')) {
+            $application->setEventsManager($di->getShared('applicationEventManager'));
         }
 
-        return $arguments;
+        return $application;
     }
 }

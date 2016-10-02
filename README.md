@@ -186,6 +186,17 @@ $ php index.php mailing send reminder
 
 That will call the `send` action from the `mailing` task with invoking `reminder` as an argument.
 
+### Run a command with arguments and options
+
+Let's imagine that the application is bootstrapped inside `index.php`
+
+```sh
+$ php index.php mailing send reminder --sender=foo@bar.com --bcc=baz@bar.com
+```
+
+That will call the `send` action from the `mailing` task with invoking `reminder` as an argument.
+Inside the `send` action the options are aware by `$this->dispatcher->getOptions()`.
+
 For more details have a look to the functional tests at https://github.com/mamuz/phalcon-application/blob/master/tests/functional/CommandLineCest.php
 based on that [example project](https://github.com/mamuz/phalcon-application/tree/master/tests/_data/StubProject).
 

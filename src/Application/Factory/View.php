@@ -27,23 +27,26 @@ declare(strict_types = 1);
 
 namespace Phapp\Application\Factory;
 
+use Phalcon\DiInterface;
 use Phalcon\Events\Event;
-use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Mvc\View as MvcView;
 
 class View
 {
     /**
-     * @param array $config
-     * @param Dispatcher $dispatcher
+     * @param array       $config
+     * @param DiInterface $di
      * @return MvcView
      */
-    public static function createFrom(array $config, Dispatcher $dispatcher) : MvcView
+    public static function createFrom(array $config, DiInterface $di) : MvcView
     {
         $view = new MvcView;
 
         if (isset($config['templatePath'])) {
             $view->setViewsDir($config['templatePath']);
+            /** @var MvcDispatcher $dispatcher */
+            $dispatcher = $di->getShared('dispatcher');
             $dispatcher->getEventsManager()->attach('dispatch', new self);
         } else {
             $view->disable();
@@ -53,10 +56,10 @@ class View
     }
 
     /**
-     * @param Event $event
-     * @param Dispatcher $dispatcher
+     * @param Event         $event
+     * @param MvcDispatcher $dispatcher
      */
-    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
+    public function beforeExecuteRoute(Event $event, MvcDispatcher $dispatcher)
     {
         if ($dispatcher->getNamespaceName() !== $dispatcher->getDefaultNamespace()) {
             /** @var MvcView $view */
@@ -78,10 +81,10 @@ class View
     }
 
     /**
-     * @param Event $event
-     * @param Dispatcher $dispatcher
+     * @param Event         $event
+     * @param MvcDispatcher $dispatcher
      */
-    public function beforeDispatchLoop(Event $event, Dispatcher $dispatcher)
+    public function beforeDispatchLoop(Event $event, MvcDispatcher $dispatcher)
     {
         if (!$dispatcher->getDI()->has('request')) {
             return;

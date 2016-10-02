@@ -38,4 +38,9 @@ class Index extends Controller
             )
         );
     }
+
+    public function exceptionAction()
+    {
+        throw new \Exception('user error');
+    }
 }
