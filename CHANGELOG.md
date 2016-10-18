@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.2.1 - UNRELEASED
+## v2.2.2 - UNRELEASED
 Nothing yet.
+
+## v2.2.1 - 2016-10-18
+### Fixed
+- Exclude test directory for export by git
 
 ## v2.2.0 - 2016-10-02
 ### Fixed
