@@ -1,6 +1,4 @@
-FROM phalconphp/php:7
-
-RUN apt-get -y install git
+FROM phalconphp/php:alpine-php7-min
 
 COPY . /phapp
 WORKDIR /phapp

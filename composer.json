@@ -25,10 +25,10 @@
   },
   "require": {
     "php": "^7.0",
-    "ext-phalcon": "^3.0"
+    "ext-phalcon": "^3.4"
   },
   "require-dev": {
-    "codeception/codeception": "^2.2"
+    "codeception/codeception": "^2.5"
   },
   "autoload": {
     "psr-4": {
