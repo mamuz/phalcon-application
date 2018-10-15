@@ -77,7 +77,7 @@ class ActionDomainResponseCest
             $bootstrapper = new \Phapp\Application\Bootstrap($this->config, false);
             $bootstrapper->runApplicationOn([]);
         });
-        $tester->assertSame($expected . '2', ob_get_clean());
+        $tester->assertSame($expected, ob_get_clean());
 
         $this->request = $this->forcedExpectatation = null;
         unset($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
