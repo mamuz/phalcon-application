@@ -64,7 +64,6 @@ class Bootstrap
         if ($this->isConsole) {
             Application::createCliFrom($this->config)->setArgument($server['argv'])->handle();
         } else {
-
             if ($response = Application::createMvcFrom($this->config)->handle()) {
                 $response->send();
             }
