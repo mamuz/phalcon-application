@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.3.1 - UNRELEASED
+## v2.3.2 - UNRELEASED
 Nothing yet.
+
+## v2.3.1 - 2018-10-16
+### Fixed
+- Unstrict phalcon version
 
 ## v2.3.0 - 2018-10-15
 ### Changed
