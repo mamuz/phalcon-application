@@ -41,13 +41,25 @@ class Router
         $router->setUriSource(MvcRouter::URI_SOURCE_SERVER_REQUEST_URI);
         $router->removeExtraSlashes(true);
 
-        foreach ($routes as $route) {
-            $router->add(
+        foreach ($routes as $name => $route) {
+            $route = $router->add(
                 $route['pattern'],
                 $route['paths'] ?? null,
                 $route['httpMethods'] ?? null,
                 $route['position'] ?? MvcRouter::POSITION_LAST
             );
+
+            $route->setName($name);
+
+            if (isset($route['hostname'])) {
+                $route->setHostname($route['hostname']);
+            }
+
+            if (isset($route['converts'])) {
+                foreach ($route['converts'] as $id => $callback) {
+                    $route->convert($id, $route['convert']);
+                }
+            }
         }
 
         return $router;

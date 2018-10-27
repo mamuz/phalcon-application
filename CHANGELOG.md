@@ -1,8 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.3.2 - UNRELEASED
+## v2.4.1 - UNRELEASED
 Nothing yet.
+
+## v2.4.0 - 2018-10-27
+### Added
+- Name, hostname and converts to route factory
 
 ## v2.3.1 - 2018-10-16
 ### Fixed
